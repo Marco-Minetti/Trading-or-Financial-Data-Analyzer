@@ -1,21 +1,22 @@
-#include <stdio.h>
-
-typedef struct Data{
-    FILE *dataIn = fopen("NIVIDIA Stock Price History.csv", "r");
-    struct Data *next;
+typedef struct {
+float price;
+float open;
+float high;
+float low;
+float high;
+float change;
 }Data;
 
 
-int main(){
-
-Data *d = malloc(sizeof(Data));
-
-Data *head;
-Data *temp;
+typedef struct Node{ //when you open a file you read it all
+    Data d;
+    struct Node *next;
+}Node;
 
 
+void *nodesCombined(Node n){ //
+    Node *n = malloc(sizeof(Node));
 
-
-
+    while()
 
 }
