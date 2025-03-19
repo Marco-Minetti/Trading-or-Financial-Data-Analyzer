@@ -16,13 +16,12 @@ typedef struct Node{ //when you open a file you read it all
 }Node;
 
 
-void *nodesCombined(Node n){ //
-    
-
+void *nodesCombined(Node *n){ //
     Node *head = NULL;
 
-    while(head == NULL){
-
+    while(head != NULL){
+        n->next = head;
+        head = n;
     }
 }
 
