@@ -52,7 +52,7 @@ To run the program and analyze a stock data CSV file:
 ```
 Example command-line query:
 ```sh
-./analyzer <other file.c> -f stock_data.csv -s "03/10/2025" -e "03/18/2025" -c + -p 110:120 -h 115:13 -l 90:1 //TODO: adjust this one
+./analyzer -f stock_data.csv -s "03/10/2025" -e "03/18/2025" -c + -p 110:120 -h 115:13 -l 90:1 //TODO: adjust this one
 ```
 
 ## License
