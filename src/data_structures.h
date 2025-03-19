@@ -18,7 +18,7 @@ typedef struct Node{ //when you open a file you read it all
     struct Node* next;
 }Node;
 
-void nodesCombined(Node *n);
+Node* nodesCombined(Node *n);
 
 void nodesCreate(Data d);
 

@@ -1,23 +1,25 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-      {
-          "label": "C/C++: gcc.exe build active file",
-          "type": "shell",
-          "command": "gcc",
-          "args": [
-              "-g",
-              "src/main.c",
-              "src/data.c",  // Include data.c here
-              "-o",
-              "src/main.exe"
-          ],
-          "group": {
-              "kind": "build",
-              "isDefault": true
-          },
-          "problemMatcher": ["$gcc"],
-          "detail": "Generated task by Debugger."
-      }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run C Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "C:/Users/jerem/OneDrive/Desktop/GitHub/Trading-or-Financial-Data-Analyzer/src/main.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build C Program"
+        }
+    ]
 }
