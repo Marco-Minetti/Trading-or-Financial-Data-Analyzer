@@ -37,8 +37,8 @@ financial_data_analyzer/
 ## Installation & Compilation
 1. Clone the repository:
    ```sh
-   git clone <your-repo-url>
-   cd financial_data_analyzer
+   git clone https://github.com/Marco-Minetti/Trading-or-Financial-Data-Analyzer.git
+   cd Trading-or-Financial-Data-Analyzer
    ```
 2. Compile the project using Makefile:
    ```sh
@@ -48,11 +48,11 @@ financial_data_analyzer/
 ## Usage
 To run the program and analyze a stock data CSV file:
 ```sh
-./analyzer TODO: put the line
+./analyzer -f <file_name.csv>
 ```
 Example command-line query:
 ```sh
-./analyzer TODO: put the line
+./analyzer ./stock_query -f stock_data.csv -s "03/10/2025" -e "03/18/2025" -c + -p 110:120 -h 115:13 -l 90:1
 ```
 
 ## License
