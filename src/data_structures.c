@@ -8,7 +8,7 @@ void nodesCreate(Data d){
     Node *n = malloc(sizeof(Node));
     n->d = d;
     n->next = NULL;
-    printf("Data: %d", d);
+    printf("Data: %d\n", d);
     nodesCombined(n);
 }
 
@@ -16,13 +16,13 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
     static Node *head = NULL; //it will keep the head across function calls
     Node *temp = n;
 
-    printf("THIS IS IS THE START");
+    printf("THIS IS IS THE START\n");
     while(temp != NULL){
         temp->next = head;
         head = temp;
         temp = temp->next;
     }
-    printf("Hello");
+    printf("THIS IS THE END\n");
     return head;
 }
 

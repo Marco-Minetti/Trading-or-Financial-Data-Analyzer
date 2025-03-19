@@ -24,6 +24,16 @@ int main(){
 
     nodesCreate(d2);
 
+    Data d3;
+    d3.price = 12.3;
+    d3.open = 12.3;
+    d3.high = 47.4;
+    d3.low = 14.3;
+    d3.high = 75.4;
+    d3.change = 47.4;
+
+    nodesCreate(d3);
+
 
 
 
