@@ -1,24 +1,23 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/dfj24/OneDrive/Desktop/Trading-or-Financial-Data-Analyzer/src",
-      "program": "c:/Users/dfj24/OneDrive/Desktop/Trading-or-Financial-Data-Analyzer/src/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    }
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "C/C++: gcc.exe build active file",
+          "type": "shell",
+          "command": "gcc",
+          "args": [
+              "-g",
+              "src/main.c",
+              "src/data.c",  // Include data.c here
+              "-o",
+              "src/main.exe"
+          ],
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          },
+          "problemMatcher": ["$gcc"],
+          "detail": "Generated task by Debugger."
+      }
   ]
 }

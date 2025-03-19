@@ -1,8 +1,11 @@
 //creating the nodes 
 //linking the nodes
-#include <stdlib.h>
 
-typedef struct {
+#ifndef DATA_STRUCTURES_H
+#define DATA_STRUCTURES_H
+
+
+typedef struct { //when defining structs in the header they don't have to be defined again in the c file
 float price;
 float open;
 float high;
@@ -10,13 +13,17 @@ float low;
 float change;
 }Data;
 
-typedef struct Node{
+typedef struct Node{ //when you open a file you read it all
+    Data d;
+    struct Node* next;
 }Node;
 
-void *nodesCreate(Data d);
+void nodesCombined(Node *n);
+
+void nodesCreate(Data d);
 
 
-
+#endif
 
 /*Header File---------------
 
