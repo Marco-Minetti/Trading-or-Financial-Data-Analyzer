@@ -16,4 +16,4 @@ stock_analysis: $(OBJ)
 Clean compiled files
 .PHONY: clean
 clean:
-    rm -f *.o data_structures.c
+    rm -f *.o stock_analysis

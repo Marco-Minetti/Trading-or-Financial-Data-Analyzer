@@ -11,6 +11,7 @@ float price;
 float open;
 float high;
 float low;
+float volume;
 float change;
 }Data;
 
@@ -19,10 +20,11 @@ typedef struct Node{ //when you open a file you read it all
     struct Node* next;
 }Node;
 
+void createStruct(date, price, open, high, low, volume, change);
+
 Node* nodesCombined(Node *n);
 
 void nodesCreate(Data d);
-
 
 #endif
 
