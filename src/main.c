@@ -22,7 +22,7 @@ int main(){
     d2.high = 5.4;
     d2.change = 78.4;
 
-    nodesCreate(d2);
+    //nodesCreate(d2);
 
     Data d3;
     d3.price = 12.3;
@@ -32,7 +32,7 @@ int main(){
     d3.high = 75.4;
     d3.change = 47.4;
 
-    nodesCreate(d3);
+    //nodesCreate(d3);
 
 
 
