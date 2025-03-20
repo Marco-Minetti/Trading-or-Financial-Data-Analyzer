@@ -3,6 +3,15 @@
 #include <stdlib.h>
 
 //this function will create the node, hold the data and will be initialized to NULL and then be passed to nodesCombined to be linked together?
+
+/*void createStruct(date, price, open, high, low, volume, change){
+    date = Data.date;
+    price = Data.price;
+    open = Date.open;
+
+}*/
+
+
 void nodesCreate(Data d){
     printf("Hi");
     Node *n = malloc(sizeof(Node));
@@ -10,6 +19,11 @@ void nodesCreate(Data d){
     n->next = NULL;
     printf("Data: %d\n", d);
     nodesCombined(n);
+    //void createStruct(date, price, open, high, low, volume, change) pass the variables from that to the node
+    //date = 
+    //price = Data.price;
+    //open = Data.open;
+    //
 }
 
 Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here and connected to each other

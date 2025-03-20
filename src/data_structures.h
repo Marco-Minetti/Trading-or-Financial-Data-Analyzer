@@ -6,6 +6,7 @@
 
 
 typedef struct { //when defining structs in the header they don't have to be defined again in the c file
+char date[20];
 float price;
 float open;
 float high;
