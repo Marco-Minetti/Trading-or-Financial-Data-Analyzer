@@ -7,6 +7,8 @@
 #include "query_interface.h"
 
 int main(int argc, char *argv[]) {
+    extern char *optarg;
+    extern int optind;
     int opt;
     char *filename = NULL;
     char *start_date = NULL;

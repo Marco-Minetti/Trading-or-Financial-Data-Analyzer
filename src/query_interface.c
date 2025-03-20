@@ -32,7 +32,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
                        const char *change_filter, const char *price_range, 
                        const char *high_range, const char *low_range) {
     char fileposition[sizeof(filename) + 10];
-    strcat(fileposition, "../data/");
+    strcat(fileposition, "./data/");
     strcat(fileposition, filename);
     FILE *file = fopen(fileposition, "r");
     if (!file) {
@@ -59,7 +59,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
 
         char *percent_sign = strchr(change, '%');
         if (percent_sign) *percent_sign = '\0';  // Remove '%'
-        double change_value = atof(change);
+        //double change_value = atof(change);
 
         // Check filters
         if (!is_date_in_range(date, start_date, end_date)) continue;
