@@ -31,9 +31,12 @@ int is_change_matching(const char *change, const char *filter) {
 void query_stock_price(const char *filename, const char *start_date, const char *end_date, 
                        const char *change_filter, const char *price_range, 
                        const char *high_range, const char *low_range) {
-    FILE *file = fopen(filename, "r");
+    char fileposition[sizeof(filename) + 10];
+    strcat(fileposition, "../data/");
+    strcat(fileposition, filename);
+    FILE *file = fopen(fileposition, "r");
     if (!file) {
-        printf("Error: Could not open file %s\n", filename);
+        printf("Error: Could not open file %s\n", fileposition);
         return;
     }
 
