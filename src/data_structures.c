@@ -15,11 +15,11 @@ void createStruct(const char *date, float price, float open, float high, float l
     d->low = low;
     d->volume = volume;
     d->change = change;
-    nodesCreate(*d);
+    nodesCreate(d);
 }
 
-//this function will create the node, hold the data and will be initialized to NULL and then be passed to nodesCombined to be linked together?
-void nodesCreate(Data d){
+//this function will create the node, hold the data and will be initialized to NULL and then be passed to nodesCombined to be linked together
+void nodesCreate(Data *d){
     Node *n = malloc(sizeof(Node));
     n->d = d;
     n->next = NULL;

@@ -5,7 +5,7 @@
 #define DATA_STRUCTURES_H
 
 
-typedef struct { //when defining structs in the header they don't have to be defined again in the c file
+typedef struct {
 char date[20];
 float price, open, high, low, volume, change;
 }Data;
@@ -19,6 +19,6 @@ void createStruct(const char *date, float price, float open, float high, float l
 
 Node* nodesCombined(Node *n);
 
-void nodesCreate(Data d);
+void nodesCreate(Data *d);
 
 #endif
