@@ -4,9 +4,11 @@
 #include <string.h>
 
 //this function will take all the vars and allocate space for it then be passed to create the node
-void createStruct(char[] date, price, open, high, low, volume, change){
+//the constant char allows you pass a string literal safely to the function
+void createStruct(const char *date, float price, float open, float high, float low, float volume, float change){
     Data *d = malloc(sizeof(Data));
-    strcpy(d->date, *date); 
+    strncpy(d->date, date, 11);
+    d->date[11] = '\0';
     d->price = price;
     d->open = open;
     d->high = high;
@@ -25,13 +27,14 @@ void nodesCreate(Data d){
 }
 
 Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here and connected to each other
-    static Node *head = NULL; //it will keep the head across function calls
+    static Node *head = NULL; //will retain its state when the function is done, and it wont be reinitialized on each call
     Node *temp = n;
-
+    
     while(temp != NULL){
+        Node *ref = temp->next; //will always be set to null due to temp->next being always being NULL
         temp->next = head;
         head = temp;
-        temp = temp->next;
+        temp = ref; //will refer to ref and temp will be set to NULL
     }
     return head;
 }
