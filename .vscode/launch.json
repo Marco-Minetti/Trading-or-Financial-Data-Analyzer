@@ -1,25 +1,45 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Run C Program",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "C:/Users/jerem/OneDrive/Desktop/GitHub/Trading-or-Financial-Data-Analyzer/src/main.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "setupCommands": [
         {
-            "name": "Run C Program",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "C:/Users/jerem/OneDrive/Desktop/GitHub/Trading-or-Financial-Data-Analyzer/src/main.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "Build C Program"
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
         }
-    ]
+      ],
+      "preLaunchTask": "Build C Program"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/dfj24/OneDrive/Desktop/Files/Unity/Trading-or-Financial-Data-Analyzer/src",
+      "program": "c:/Users/dfj24/OneDrive/Desktop/Files/Unity/Trading-or-Financial-Data-Analyzer/src/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
 }

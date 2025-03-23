@@ -70,7 +70,8 @@ void query_stock_price(const char *filename, const char *start_date, const char 
 
         // Print matching row
         printf("Date: %s | Price: %s | Open: %s | High: %s | Low: %s | Volume: %s | Change: %s\n",
-               date, price, open, high, low, volume, change);
+               date, price, open, high, low, volume, change); //we can take it off when we want
+        createStruct(date, atof(price), atof(open), atof(high), atof(low), atof(volume), atof(change));
         found = 1;
     }
 
