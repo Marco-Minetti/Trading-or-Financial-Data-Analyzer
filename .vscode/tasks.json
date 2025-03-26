@@ -2,23 +2,18 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build C Program",
+            "label": "Build with Make",
             "type": "shell",
-            "command": "C:/msys64/ucrt64/bin/gcc.exe",
-            "args": [
-                "-mconsole",
-                "-g",
-                "C:/Users/jerem/OneDrive/Desktop/GitHub/Trading-or-Financial-Data-Analyzer/src/main.c",
-                "C:/Users/jerem/OneDrive/Desktop/GitHub/Trading-or-Financial-Data-Analyzer/src/data_structures.c",
-                "-o",
-                "C:/Users/jerem/OneDrive/Desktop/GitHub/Trading-or-Financial-Data-Analyzer/src/main.exe"
-            ],
-            "group": "build"
+            "command": "make",
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
         },
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+            "command": "C:/Users/dabun/OneDrive/Documents/C project/ucrt64/bin/gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -27,7 +22,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "C:/Users/dabun/OneDrive/Documents/C project/ucrt64/bin"
             },
             "problemMatcher": [
                 "$gcc"
