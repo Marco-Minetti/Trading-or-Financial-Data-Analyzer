@@ -1,4 +1,5 @@
 #include "data_structures.h"
+#include "analytics.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,6 +37,7 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
         head = temp;
         temp = ref; //will refer to ref and temp will be set to NULL
     }
+    //calculations(head);
     return head;
 }
 
