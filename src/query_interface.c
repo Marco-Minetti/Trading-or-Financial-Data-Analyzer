@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "query_interface.h"
+#include "data_structures.h"
 
 #define MAX_LINE 1024
 
@@ -31,9 +32,8 @@ int is_change_matching(const char *change, const char *filter) {
 void query_stock_price(const char *filename, const char *start_date, const char *end_date, 
                        const char *change_filter, const char *price_range, 
                        const char *high_range, const char *low_range) {
-    char fileposition[sizeof(filename) + 10];
-    strcat(fileposition, "./data/");
-    strcat(fileposition, filename);
+    char fileposition[256];
+    snprintf(fileposition, sizeof(fileposition), "./data/%s", filename);
     FILE *file = fopen(fileposition, "r");
     if (!file) {
         printf("Error: Could not open file %s\n", fileposition);
@@ -50,8 +50,8 @@ void query_stock_price(const char *filename, const char *start_date, const char 
         char date[20], price[20], open[20], high[20], low[20], volume[20], change[20];
 
         // Parse CSV line
-        sscanf(line, "\"%[^\"]\",\"%[^\"]\",\"%[^\"]\",\"%[^\"]\",\"%[^\"]\",\"%[^\"]\",\"%[^\"]\"",
-               date, price, open, high, low, volume, change);
+        sscanf(line, "\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\"",
+            date, price, open, high, low, volume, change);
 
         double price_value = atof(price);
         double high_value = atof(high);
@@ -59,7 +59,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
 
         char *percent_sign = strchr(change, '%');
         if (percent_sign) *percent_sign = '\0';  // Remove '%'
-        //double change_value = atof(change);
+        double change_value = atof(change) / 100.0;
 
         // Check filters
         if (!is_date_in_range(date, start_date, end_date)) continue;

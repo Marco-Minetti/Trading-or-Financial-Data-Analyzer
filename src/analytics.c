@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include "analytics.h"
+#include "data_structures.h"
 
 // Load stock data from CSV
 int loadStockData(const char *filename, StockRecord records[], int maxRecords) {

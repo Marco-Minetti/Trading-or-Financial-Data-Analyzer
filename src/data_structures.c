@@ -5,10 +5,10 @@
 
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
-void createStruct(const char *date, float price, float open, float high, float low, float volume, float change){
+void createStruct(char* date, float price, float open, float high, float low, float volume, float change){
     Data *d = malloc(sizeof(Data));
-    strncpy(d->date, date, 11);
-    d->date[11] = '\0';
+    strncpy(d->date, date, sizeof(d->date) - 1);
+    d->date[sizeof(d->date) - 1] = '\0';
     d->price = price;
     d->open = open;
     d->high = high;

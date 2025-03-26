@@ -10,6 +10,7 @@ typedef struct {
     char date[20];
     double open, high, low, close;
     int volume;
+    float price;
 } StockRecord;
 
 // Function prototypes

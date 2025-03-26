@@ -15,7 +15,7 @@ typedef struct Node{
     struct Node* next;
 }Node;
 
-void createStruct(const char *date, float price, float open, float high, float low, float volume, float change);
+void createStruct(char* date, float price, float open, float high, float low, float volume, float change);
 
 Node* nodesCombined(Node *n);
 
