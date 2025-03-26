@@ -5,45 +5,6 @@
 #include "analytics.h"
 #include "data_structures.h"
 
-// Load stock Node from CSV
-int loadStockNode(const char *filename, StockRecord records[], int maxRecords) {
-    printf("Attempting to open file: %s\n", filename);
-
-    FILE *file = fopen(filename, "r");
-    if (!file) {
-        perror("Error opening file");
-        return 0;
-    }
-
-    char line[MAX_LINE];
-    int count = 0;
-
-    // Skip header
-    fgets(line, sizeof(line), file);
-
-    while (fgets(line, sizeof(line), file) && count < maxRecords) {
-        StockRecord rec;
-        double price;
-        char volumeStr[20];
-
-        if (sscanf(line, "\"%19[^\"]\",\"%lf\",\"%lf\",\"%lf\",\"%lf\",\"%19[^\"]\"",
-                   rec.date, &price, &rec.open, &rec.high, &rec.low, volumeStr) == 6) {
-            
-            rec.close = price;
-
-            // Convert volume from string to integer
-            char unit = volumeStr[strlen(volumeStr) - 1];
-            volumeStr[strlen(volumeStr) - 1] = '\0';
-            rec.volume = atof(volumeStr) * (unit == 'M' ? 1e6 : (unit == 'B' ? 1e9 : 1));
-
-            records[count++] = rec;
-        }
-    }
-
-    fclose(file);
-    return count;
-}
-
 // Calculate SMA
 /*
 void calculateSMA(StockRecord records[], int count, int window) {
