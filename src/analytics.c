@@ -6,23 +6,6 @@
 #include "data_structures.h"
 
 // Calculate SMA
-/*
-void calculateSMA(StockRecord records[], int count, int window) {
-    if (count < window) {
-        printf("Not enough Node for SMA calculation\n");
-        return;
-    }
-
-    printf("\nSMA (%d-day):\n", window);
-    for (int i = 0; i <= count - window; i++) {
-        double sum = 0.0;
-        for (int j = 0; j < window; j++) {
-            sum += records[i + j].close;
-        }
-        printf("%s SMA: %.2f\n", records[i + window - 1].date, sum / window);
-    }
-}*/
-
 void calculateSMA(Node* head, int window) {
     if (!head) {
         printf("No Data available for SMA calculation.\n");
@@ -51,28 +34,6 @@ void calculateSMA(Node* head, int window) {
 }
 
 // Find Min/Max prices
-/*
-void calculateMinMax(StockRecord records[], int count) {
-    double minPrice = records[0].close, maxPrice = records[0].close;
-    char minDate[20], maxDate[20];
-    strcpy(minDate, records[0].date);
-    strcpy(maxDate, records[0].date);
-
-    for (int i = 1; i < count; i++) {
-        if (records[i].close < minPrice) {
-            minPrice = records[i].close;
-            strcpy(minDate, records[i].date);
-        }
-        if (records[i].close > maxPrice) {
-            maxPrice = records[i].close;
-            strcpy(maxDate, records[i].date);
-        }
-    }
-
-    printf("\nMax Price: %.2f on %s\n", maxPrice, maxDate);
-    printf("Min Price: %.2f on %s\n", minPrice, minDate);
-}*/
-
 void calculateMinMax(Node* head) {
     if (!head) {
         printf("No Data available for Min/Max calculation.\n");
@@ -103,24 +64,6 @@ void calculateMinMax(Node* head) {
 }
 
 // Calculate volatility
-/*
-void calculateVolatility(StockRecord records[], int count) {
-    double sum = 0.0, mean, variance = 0.0, stddev;
-
-    for (int i = 0; i < count; i++) {
-        sum += records[i].close;
-    }
-    mean = sum / count;
-
-    for (int i = 0; i < count; i++) {
-        variance += pow(records[i].close - mean, 2);
-    }
-    variance /= count;
-    stddev = sqrt(variance);
-
-    printf("\nVolatility (Std Dev of Close Prices): %.2f\n", stddev);
-}*/
-
 void calculateVolatility(Node* head) {
     if (!head) {
         printf("No Data available for volatility calculation.\n");
