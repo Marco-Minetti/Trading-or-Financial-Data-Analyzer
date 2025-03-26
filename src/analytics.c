@@ -5,8 +5,8 @@
 #include "analytics.h"
 #include "data_structures.h"
 
-// Load stock data from CSV
-int loadStockData(const char *filename, StockRecord records[], int maxRecords) {
+// Load stock Node from CSV
+int loadStockNode(const char *filename, StockRecord records[], int maxRecords) {
     printf("Attempting to open file: %s\n", filename);
 
     FILE *file = fopen(filename, "r");
@@ -45,9 +45,10 @@ int loadStockData(const char *filename, StockRecord records[], int maxRecords) {
 }
 
 // Calculate SMA
+/*
 void calculateSMA(StockRecord records[], int count, int window) {
     if (count < window) {
-        printf("Not enough data for SMA calculation\n");
+        printf("Not enough Node for SMA calculation\n");
         return;
     }
 
@@ -59,9 +60,37 @@ void calculateSMA(StockRecord records[], int count, int window) {
         }
         printf("%s SMA: %.2f\n", records[i + window - 1].date, sum / window);
     }
+}*/
+
+void calculateSMA(Node* head, int window) {
+    if (!head) {
+        printf("No Data available for SMA calculation.\n");
+        return;
+    }
+
+    Node* current = head;
+    int count = 0;
+    double sum = 0.0;
+    Node* windowStart = head;  // Pointer to start of window
+
+    printf("\nSMA (%d-day):\n", window);
+
+    while (current != NULL) {
+        sum += current->d.price;
+        count++;
+
+        if (count >= window) {
+            printf("%s SMA: %.2f\n", current->d.date, sum / window);
+            sum -= windowStart->d.price;  // Remove the oldest value
+            windowStart = windowStart->next;  // Move window forward
+        }
+
+        current = current->next;
+    }
 }
 
 // Find Min/Max prices
+/*
 void calculateMinMax(StockRecord records[], int count) {
     double minPrice = records[0].close, maxPrice = records[0].close;
     char minDate[20], maxDate[20];
@@ -81,9 +110,39 @@ void calculateMinMax(StockRecord records[], int count) {
 
     printf("\nMax Price: %.2f on %s\n", maxPrice, maxDate);
     printf("Min Price: %.2f on %s\n", minPrice, minDate);
+}*/
+
+void calculateMinMax(Node* head) {
+    if (!head) {
+        printf("No Data available for Min/Max calculation.\n");
+        return;
+    }
+
+    double minPrice = head->d.price, maxPrice = head->d.price;
+    char minDate[20], maxDate[20];
+    strcpy(minDate, head->d.date);
+    strcpy(maxDate, head->d.date);
+
+    Node* current = head->next;
+
+    while (current != NULL) {
+        if (current->d.price < minPrice) {
+            minPrice = current->d.price;
+            strcpy(minDate, current->d.date);
+        }
+        if (current->d.price > maxPrice) {
+            maxPrice = current->d.price;
+            strcpy(maxDate, current->d.date);
+        }
+        current = current->next;
+    }
+
+    printf("\nMax Price: %.2f on %s\n", maxPrice, maxDate);
+    printf("Min Price: %.2f on %s\n", minPrice, minDate);
 }
 
 // Calculate volatility
+/*
 void calculateVolatility(StockRecord records[], int count) {
     double sum = 0.0, mean, variance = 0.0, stddev;
 
@@ -95,6 +154,38 @@ void calculateVolatility(StockRecord records[], int count) {
     for (int i = 0; i < count; i++) {
         variance += pow(records[i].close - mean, 2);
     }
+    variance /= count;
+    stddev = sqrt(variance);
+
+    printf("\nVolatility (Std Dev of Close Prices): %.2f\n", stddev);
+}*/
+
+void calculateVolatility(Node* head) {
+    if (!head) {
+        printf("No Data available for volatility calculation.\n");
+        return;
+    }
+
+    int count = 0;
+    double sum = 0.0, mean, variance = 0.0, stddev;
+    Node* current = head;
+
+    // Calculate mean
+    while (current != NULL) {
+        sum += current->d.price;
+        count++;
+        current = current->next;
+    }
+
+    mean = sum / count;
+    current = head;
+
+    // Calculate variance
+    while (current != NULL) {
+        variance += pow(current->d.price - mean, 2);
+        current = current->next;
+    }
+
     variance /= count;
     stddev = sqrt(variance);
 

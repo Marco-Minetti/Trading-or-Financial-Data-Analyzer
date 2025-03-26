@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <getopt.h>
 #include "csv_reader.h"
 #include "data_structures.h"
 #include "query_interface.h"
@@ -39,5 +40,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     
+    query_stock_price(filename, start_date, end_date, change_filter, price_range, high_range, low_range);
+    Node* head = nodesCombined(NULL);
+
+    // Perform calculations
+    calculateSMA(head, 5);  // Compute 5-day SMA
+    calculateMinMax(head);  // Find min/max price
+    calculateVolatility(head);  // Compute volatility
     return 0;
 }

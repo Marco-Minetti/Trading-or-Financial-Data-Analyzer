@@ -1,6 +1,7 @@
 #ifndef ANALYTICS_H
 #define ANALYTICS_H
 
+#include "data_structures.h" 
 #define MAX_LINE 1024
 #define MAX_RECORDS 10000
 #define SMA_WINDOW 5
@@ -15,8 +16,8 @@ typedef struct {
 
 // Function prototypes
 int loadStockData(const char *filename, StockRecord records[], int maxRecords);
-void calculateSMA(StockRecord records[], int count, int window);
-void calculateMinMax(StockRecord records[], int count);
-void calculateVolatility(StockRecord records[], int count);
+void calculateSMA(Node* head, int window); 
+void calculateMinMax(Node* head); 
+void calculateVolatility(Node* head);       
 
 #endif
