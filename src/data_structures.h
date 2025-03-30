@@ -10,5 +10,7 @@ void createStruct(char* date, float price, float open, float high, float low, fl
 
 Node* nodesCombined(Node *n);
 
+void clearingMemory(Node *head);
+
 
 #endif
