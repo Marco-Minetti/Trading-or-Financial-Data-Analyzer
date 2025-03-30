@@ -7,7 +7,8 @@
 typedef struct {
     char date[20];
     float price, open, high, low, volume, change;
-    }Data;
+}Data;
+
 
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
@@ -44,6 +45,3 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
     }
     return head;
 }
-
-
-//the header file is for declaring functions

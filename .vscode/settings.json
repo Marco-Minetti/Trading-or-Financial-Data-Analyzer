@@ -58,7 +58,8 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
-    "csv_reader.h": "c"
+    "csv_reader.h": "c",
+    "string.h": "c"
   },
   "makefile.configureOnOpen": true
 }
