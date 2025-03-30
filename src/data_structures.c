@@ -4,9 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct {
+    char date[20];
+    float price, open, high, low, volume, change;
+    }Data;
+
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
-void createStruct(char* date, float price, float open, float high, float low, float volume, float change){
+void createStruct(const char *date, float price, float open, float high, float low, float volume, float change){
     Data *d = malloc(sizeof(Data));
     strncpy(d->date, date, sizeof(d->date) - 1);
     d->date[sizeof(d->date) - 1] = '\0';
@@ -37,7 +42,6 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
         head = temp;
         temp = ref; //will refer to ref and temp will be set to NULL
     }
-    //calculations(head);
     return head;
 }
 
