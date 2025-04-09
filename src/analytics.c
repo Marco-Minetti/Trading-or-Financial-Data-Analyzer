@@ -4,6 +4,7 @@
 #include <math.h>
 #include "analytics.h"
 #include "data_structures.h"
+#include <omp.h>
 
 // Calculate SMA
 void calculateSMA(Node* head, int window) {
@@ -19,6 +20,7 @@ void calculateSMA(Node* head, int window) {
 
     printf("\nSMA (%d-day):\n", window);
 
+    #pragma omp parallel num_threads(4) //this is where the cores will start
         while (current != NULL) {
             sum += current->d.price;
             count++;
@@ -47,6 +49,7 @@ void calculateMinMax(Node* head) {
     
         Node* current = head->next;
 
+        #pragma omp parallel num_threads(4) //this is where parallelzing will happen
         while (current != NULL) {
             if (current->d.price < minPrice) {
                 minPrice = current->d.price;
@@ -74,7 +77,9 @@ void calculateVolatility(Node* head) {
         double sum = 0.0, mean, variance = 0.0, stddev;
         Node* current = head;
 
+    
     // Calculate mean
+    #pragma omp parallel num_threads(4) //this is where parallelzing will happen
             while (current != NULL) {
                 sum += current->d.price;
                 count++;
