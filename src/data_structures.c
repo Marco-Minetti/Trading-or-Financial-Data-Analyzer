@@ -12,7 +12,7 @@ typedef struct {
 
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
-void createStruct(const char date, float price, float open, float high, float low, float volume, float change){
+void createStruct(const char date, double price, double open, double high, double low, double volume, double change){
     Data *d = malloc(sizeof(Data));
     strncpy(d->date, date, sizeof(d->date) - 1);
     d->date[sizeof(d->date) - 1] = '\0';

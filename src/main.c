@@ -47,6 +47,6 @@ int main(int argc, char *argv[]) {
     calculateSMA(head, 5);  // Compute 5-day SMA
     calculateMinMax(head);  // Find min/max price
     calculateVolatility(head);  // Compute volatility
+    clearingMemory(head); //clear the memory when done
     return 0;
-
 }
