@@ -19,18 +19,18 @@ void calculateSMA(Node* head, int window) {
 
     printf("\nSMA (%d-day):\n", window);
 
-    while (current != NULL) {
-        sum += current->d.price;
-        count++;
-
-        if (count >= window) {
-            printf("%s SMA: %.2f\n", current->d.date, sum / window);
-            sum -= windowStart->d.price;  // Remove the oldest value
-            windowStart = windowStart->next;  // Move window forward
+        while (current != NULL) {
+            sum += current->d.price;
+            count++;
+    
+            if (count >= window) {
+                printf("%s SMA: %.2f\n", current->d.date, sum / window);
+                sum -= windowStart->d.price;  // Remove the oldest value
+                windowStart = windowStart->next;  // Move window forward
+            }
+    
+            current = current->next;
         }
-
-        current = current->next;
-    }
 }
 
 // Find Min/Max prices
@@ -40,27 +40,27 @@ void calculateMinMax(Node* head) {
         return;
     }
 
-    double minPrice = head->d.price, maxPrice = head->d.price;
-    char minDate[20], maxDate[20];
-    strcpy(minDate, head->d.date);
-    strcpy(maxDate, head->d.date);
+        double minPrice = head->d.price, maxPrice = head->d.price;
+        char minDate[20], maxDate[20];
+        strcpy(minDate, head->d.date);
+        strcpy(maxDate, head->d.date);
+    
+        Node* current = head->next;
 
-    Node* current = head->next;
-
-    while (current != NULL) {
-        if (current->d.price < minPrice) {
-            minPrice = current->d.price;
-            strcpy(minDate, current->d.date);
+        while (current != NULL) {
+            if (current->d.price < minPrice) {
+                minPrice = current->d.price;
+                strcpy(minDate, current->d.date);
+            }
+            if (current->d.price > maxPrice) {
+                maxPrice = current->d.price;
+                strcpy(maxDate, current->d.date);
+            }
+            current = current->next;
         }
-        if (current->d.price > maxPrice) {
-            maxPrice = current->d.price;
-            strcpy(maxDate, current->d.date);
-        }
-        current = current->next;
-    }
-
-    printf("\nMax Price: %.2f on %s\n", maxPrice, maxDate);
-    printf("Min Price: %.2f on %s\n", minPrice, minDate);
+    
+        printf("\nMax Price: %.2f on %s\n", maxPrice, maxDate);
+        printf("Min Price: %.2f on %s\n", minPrice, minDate);
 }
 
 // Calculate volatility
@@ -70,28 +70,28 @@ void calculateVolatility(Node* head) {
         return;
     }
 
-    int count = 0;
-    double sum = 0.0, mean, variance = 0.0, stddev;
-    Node* current = head;
+        int count = 0;
+        double sum = 0.0, mean, variance = 0.0, stddev;
+        Node* current = head;
 
     // Calculate mean
-    while (current != NULL) {
-        sum += current->d.price;
-        count++;
-        current = current->next;
-    }
-
-    mean = sum / count;
-    current = head;
-
-    // Calculate variance
-    while (current != NULL) {
+            while (current != NULL) {
+                sum += current->d.price;
+                count++;
+                current = current->next;
+            }
+        
+            mean = sum / count;
+            current = head;
+        
+        // Calculate variance
+        while (current != NULL) {
         variance += pow(current->d.price - mean, 2);
         current = current->next;
-    }
+        }
 
     variance /= count;
     stddev = sqrt(variance);
 
-    printf("\nVolatility (Std Dev of Close Prices): %.2f\n", stddev);
-}
+    printf("\nVolatility (Std Dev of Close Prices): %.2f\n", stddev); 
+}       
