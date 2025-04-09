@@ -9,6 +9,10 @@ typedef struct {
     double price, open, high, low, volume, change;
 }Data;
 
+typedef struct Node{
+    Data d;
+    struct Node* next;
+}Node;
 
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
