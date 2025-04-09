@@ -3,6 +3,7 @@
 #include <string.h>
 #include "query_interface.h"
 #include "data_structures.h"
+#include <omp.h>
 
 #define MAX_LINE 1024
 
@@ -32,6 +33,7 @@ int is_change_matching(const char *change, const char *filter) {
 void query_stock_price(const char *filename, const char *start_date, const char *end_date, 
                        const char *change_filter, const char *price_range, 
                        const char *high_range, const char *low_range) {
+
     char fileposition[256];
     snprintf(fileposition, sizeof(fileposition), "./data/%s", filename);
     FILE *file = fopen(fileposition, "r");
@@ -46,6 +48,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
     // Skip header
     fgets(line, sizeof(line), file);
 
+    #pragma omp parallel num_threads(4)
     while (fgets(line, sizeof(line), file)) {
         char date[20], price[20], open[20], high[20], low[20], volume[20], change[20];
 

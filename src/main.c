@@ -48,4 +48,5 @@ int main(int argc, char *argv[]) {
     calculateMinMax(head);  // Find min/max price
     calculateVolatility(head);  // Compute volatility
     return 0;
+
 }
