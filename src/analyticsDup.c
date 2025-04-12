@@ -13,18 +13,11 @@ void calculateSMA(Node* head, int window) {
         printf("No Data available for SMA calculation.\n");
         return;
     }
-    Node* copy = copyLinkedList(head);
-    Node* current = head;
-    int count = 0;
-    double sum = 0.0;
-    Node* windowStart = head;  // Pointer to start of window
-//made this line of code to push 
-
     //start of the openMP section IDK if this is correct or not but this is what i cooked up
-    Node *head1 = NULL;
     Node *head2 = NULL;
-    Node static *start1 = head;
+    Node *tempHead1 = head;
 
+    //push just for linux
 
     for(int i = 0; i < numberOfNodes/2; i++){
         if(i >= numberOfNodes / 2){
