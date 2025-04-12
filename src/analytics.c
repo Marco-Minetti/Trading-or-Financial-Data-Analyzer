@@ -9,29 +9,78 @@
 
 // Calculate SMA
 void calculateSMA(Node* head, int window) {
+    omp_set_num_threads(2); //this the number of threads we are using
+
     if (!head) {
         printf("No Data available for SMA calculation.\n");
         return;
     }
+    //start of the openMP section IDK if this is correct or not but this is what i cooked up
+    Node *head1 = head;
+    Node *head2 = NULL;
+    Node *tempHead1 = head;
 
-    Node* current = head;
-    int count = 0;
-    double sum = 0.0;
-    Node* windowStart = head;  // Pointer to start of window
+    //push just for linuxz
 
+    for(int i = 0; i < numberOfNodes/2 - 1; i++){
+        ///head = start of the firs tlinked list
+        //head2 = start of the second linked list
+        if(i >= numberOfNodes / 2){
+           head2 = tempHead1->next;
+           tempHead1->next = NULL;
+        } else {
+            tempHead1 = tempHead1->next;
+        }
+    }
+    double sum1 = 0.0, sum2 = 0.0;
+    int count1 = 0, count2 = 0;
+
+    Node *temp1 = head1;
+    Node *temp2 = head2;
 
     printf("\nSMA (%d-day):\n", window);
-    while(current != NULL){
-        sum += current->d.price;
-        count++;
 
-        if (count >= window) {
-            printf("%s SMA: %.2f\n", current->d.date, sum / window);
-            sum -= windowStart->d.price;  // Remove the oldest value
-            windowStart = windowStart->next;  // Move window forward
+    #pragma omp parallel sections
+    {
+        #pragma omp section
+        {
+            while (temp1 != NULL) {
+                sum1 += temp1->d.price;
+                count1++;
+
+                if (count1 >= window) {
+                    #pragma omp critical
+                    {
+                        printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
+                    }
+                    sum1 -= temp1->d.price;
+                    temp1 = head1->next;
+                    head1 = temp1;
+                }
+
+                temp1 = temp1->next;
+            }
         }
 
-        current = current->next;
+        #pragma omp section
+        {
+            while (temp2 != NULL) {
+                sum2 += temp2->d.price;
+                count2++;
+
+                if (count2 >= window) {
+                    #pragma omp critical
+                    {
+                        printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
+                    }
+                    sum2 -= temp2->d.price;
+                    temp2 = head2->next;
+                    head2 = temp2;
+                }
+
+                temp2 = temp2->next;
+            }
+        }
     }
 }
 
