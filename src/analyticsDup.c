@@ -18,7 +18,7 @@ void calculateSMA(Node* head, int window) {
     int count = 0;
     double sum = 0.0;
     Node* windowStart = head;  // Pointer to start of window
-
+//made this line of code to push 
 
     //start of the openMP section IDK if this is correct or not but this is what i cooked up
     Node *head1 = NULL;
