@@ -1,7 +1,7 @@
 # Compiler
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 -c -lm  -fopenmp -O2 # Add math library (-lm) for compilation
-LDFLAGS = -lm  # Link math library
+LDFLAGS = -fopenmp -lm  # Link math library
 
 # Directories
 SRC_DIR = src

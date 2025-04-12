@@ -15,12 +15,10 @@ void calculateSMA(Node* head, int window) {
         printf("No Data available for SMA calculation.\n");
         return;
     }
-    //start of the openMP section IDK if this is correct or not but this is what i cooked up
+    //start of the openMP section
     Node *head1 = head;
     Node *head2 = NULL;
     Node *tempHead1 = head;
-
-    //push just for linuxz
 
     for(int i = 0; i < numberOfNodes/2 - 1; i++){
         ///head = start of the firs tlinked list
