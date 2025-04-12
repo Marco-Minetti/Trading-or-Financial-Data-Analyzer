@@ -20,7 +20,7 @@ void calculateSMA(Node* head, int window) {
 
     //push just for linuxz
 
-    for(int i = 0; i < numberOfNodes/2; i++){
+    for(int i = 0; i < numberOfNodes/2 - 1; i++){
         ///head = start of the firs tlinked list
         //head2 = start of the second linked list
         if(i >= numberOfNodes / 2){
@@ -33,45 +33,50 @@ void calculateSMA(Node* head, int window) {
     double sum1 = 0.0, sum2 = 0.0;
     int count1 = 0, count2 = 0;
 
-    Node *temp1 = head
+    Node *temp1 = head1;
     Node *temp2 = head2;
 
     printf("\nSMA (%d-day):\n", window);
 
-    #pragma omp parallel sections{
-        #pragma omp section {
+    #pragma omp parallel sections
+    {
+        #pragma omp section
+        {
+            while (temp1 != NULL) {
+                sum1 += temp1->d.price;
+                count1++;
 
-            while(temp1 != NULL){
-                sum1 += head1->d.price;
-                count1++
-
-                if(count1 >= window){
-                    #pragma omp critical {
-                    printf("%s SMA: %.2f\n", head1->d.date, sum1 / window);
+                if (count1 >= window) {
+                    #pragma omp critical
+                    {
+                        printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
                     }
                     sum1 -= temp1->d.price;
                     temp1 = head1->next;
                     head1 = temp1;
                 }
-                head1 = head1->next;
+
+                temp1 = temp1->next;
             }
         }
 
-        #pragma omp section{
-            #pragma omp section {
+        #pragma omp section
+        {
+            while (temp2 != NULL) {
+                sum2 += temp2->d.price;
+                count2++;
 
-                while(temp2 != NULL){
-                    sum2 += head2->d.price;
-                    count2++;
-
-                if(count2 >= window) {
-                    printf("%s SMA: %.2f\n", head1->d.date, sum2 / window);
+                if (count2 >= window) {
+                    #pragma omp critical
+                    {
+                        printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
+                    }
                     sum2 -= temp2->d.price;
                     temp2 = head2->next;
                     head2 = temp2;
                 }
-                head2 = head2->next;
-                }
+
+                temp2 = temp2->next;
             }
         }
     }
