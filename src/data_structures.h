@@ -2,7 +2,6 @@
 #define DATA_STRUCTURES_H
 
 extern int numberOfNodes; //global variable used to keep track of nodes possibly
-extern omp_set_num_threads(2);
 
 typedef struct {
     unsigned char date[20]: 4;
