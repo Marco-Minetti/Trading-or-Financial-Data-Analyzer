@@ -8,7 +8,7 @@
 typedef struct {
     char date[20];
     float price, open, high, low, volume, change;
-    }Data;
+}Data;
 
 typedef struct Node{ 
     Data d;

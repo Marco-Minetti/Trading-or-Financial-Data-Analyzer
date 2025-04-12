@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
     extern char *optarg;
     extern int optind;
     int opt;
+    char *mode = NULL;
     char *filename = NULL;
     char *start_date = NULL;
     char *end_date = NULL;
@@ -36,6 +37,7 @@ int main(int argc, char *argv[]) {
     char *price_range = NULL;
     char *high_range = NULL;
     char *low_range = NULL;
+    int duration;
 
     while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:")) != -1) {
         switch (opt) {
