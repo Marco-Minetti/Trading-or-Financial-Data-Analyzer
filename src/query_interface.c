@@ -142,7 +142,11 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
                 createStruct(date, current_price, open_price, high_price, low_price, 0, change_percent);
                 found = 1;
             } else {
-                fprintf(stderr, "Bad response: %s\n", buffer);
+                if(current_price == 0) {
+                    fprintf(stderr, "The symbol doesn't exist\n");
+                    exit(1);}
+                else
+                    fprintf(stderr, "Bad response: %s\n", buffer);
             }
         }
 

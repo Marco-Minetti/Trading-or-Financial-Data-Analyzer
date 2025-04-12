@@ -17,7 +17,7 @@ void print_usage(const char *program_name) {
     printf("  -f <csv_file>         CSV file containing stock data\n");
     printf("\nOption for 'live' mode:\n");
     printf("  -t <duration>         Duration in seconds to fetch live data\n");
-    printf("  -y <symbol>   Stock symbol to query (e.g., AAPL, TSLA)\n");
+    printf("  -y <symbol>   Stock symbol to query (e.g., AAPL, TSLA)(AAPL as default)\n");
     printf("\nOptional options for both mode:\n"); 
     printf("  -s <start_date>       Start date for analysis (optional)\n");
     printf("  -e <end_date>         End date for analysis (optional)\n");
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     char *price_range = NULL;
     char *high_range = NULL;
     char *low_range = NULL;
-    char *symbol = "APPL";
+    char *symbol = "AAPL";
 
     while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:y:")) != -1) {
         switch (opt) {
@@ -53,7 +53,12 @@ int main(int argc, char *argv[]) {
             case 'h': high_range = optarg; break;   // "min:max"
             case 'l': low_range = optarg; break;    // "min:max"
             case 't': duration = atoi(optarg); break;
-            case 'y': symbol = toupper(*optarg); break;      
+            case 'y': 
+            for (int i = 0; optarg[i] != '\0'; i++) {
+                optarg[i] = toupper((unsigned char)optarg[i]);  // Convert to uppercase
+            }
+            symbol = optarg; 
+            break;      
             default:
                 print_usage(argv[0]);
                 //printf("Usage: %s -f <csv_file> [-s start_date] [-e end_date] [-c +|-] [-p min:max] [-h min:max] [-l min:max]\n", argv[0]);
