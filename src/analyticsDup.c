@@ -6,9 +6,11 @@
 #include "data_structures.h"
 #include <omp.h>
 
-
+/*
 // Calculate SMA
 void calculateSMA(Node* head, int window) {
+    omp_set_number_threads(2); //this the number of threads we are using
+
     if (!head) {
         printf("No Data available for SMA calculation.\n");
         return;
@@ -81,3 +83,4 @@ void calculateSMA(Node* head, int window) {
         }
     }
 }
+    */

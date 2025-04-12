@@ -59,7 +59,8 @@
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     "csv_reader.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "omp.h": "c"
   },
   "makefile.configureOnOpen": true
 }

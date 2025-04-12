@@ -3,7 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <getopt.h>
-#include "csv_reader.h"
 #include "data_structures.h"
 #include "query_interface.h"
 #include "analytics.h"
