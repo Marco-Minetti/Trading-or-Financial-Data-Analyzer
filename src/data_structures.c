@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int numberOfNodes = 0;
+
 typedef struct {
     unsigned char date[20]: 4;
     double price, open, high, low, volume, change;
@@ -46,9 +48,11 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
         temp->next = head;
         head = temp;
         temp = ref; //will refer to ref and temp will be set to NULL
+        numberOfNodes++;
     }
     return head;
 }
+
 
 void clearingMemory(Node *head){
     Node *temp = head;
