@@ -1,8 +1,14 @@
+#define _POSIX_C_SOURCE 200112L  // Enable POSIX functions like popen, pclose
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "query_interface.h"
+#include <time.h>
+#include <unistd.h>
+
 #include "data_structures.h"
+#include "query_interface.h"
+
 
 #define MAX_LINE 1024
 
@@ -86,19 +92,19 @@ void query_stock_price(const char *filename, const char *start_date, const char 
 //export FINNHUB_API_KEY=cvrd211r01qp88cpllbgcvrd211r01qp88cpllc0
 Node* query_live_stock_price(int duration, const char *start_date, const char *end_date, 
     const char *change_filter, const char *price_range, 
-    const char *high_range, const char *low_range) {
+    const char *high_range, const char *low_range, const char *symbol) {
 
     Node* head = NULL;
     int found = 0;
-    const char* token = getenv("FINNHUB_API_KEY");
-    if (!token) {
+    const char* api_token = getenv("FINNHUB_API_KEY");
+    if (!api_token) {
         fprintf(stderr, "FINNHUB_API_KEY not set.\n");
         return NULL;
     }
 
     char command[512];
     snprintf(command, sizeof(command),
-    "curl -s \"https://finnhub.io/api/v1/quote?symbol=AAPL&token=%s\"", token);
+        "curl -s --max-time 30 \"https://finnhub.io/api/v1/quote?symbol=%s&token=%s\"", symbol, api_token);
 
     for (int i = 0; i < duration; i++) {
         FILE* fp = popen(command, "r");
@@ -109,48 +115,43 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
 
         char buffer[1024];
         if (fgets(buffer, sizeof(buffer), fp)) {
-        // Parse the JSON response (assume it's in the correct format)
-            float c, h, l, o, pc;
-            long t;
-            if (sscanf(buffer, "{\"c\":%f,\"h\":%f,\"l\":%f,\"o\":%f,\"pc\":%f,\"t\":%ld}", &c, &h, &l, &o, &pc, &t) == 6) {
-            StockData data;
-
-            time_t rawtime = (time_t)t;
-            struct tm* timeinfo = localtime(&rawtime);
-            strftime(data.date, sizeof(data.date), "%Y-%m-%d", timeinfo);
-
-            data.price = c;
-            data.high = h;
-            data.low = l;
-            data.open = o;
-            data.volume = 0; // No volume data in quote API
-            data.change_percent = ((c - pc) / pc) * 100.0f;
-
-            // Check filters
-            if (!is_date_in_range(data.date, start_date, end_date)) continue;
-            if (!is_change_matching(buffer, change_filter)) continue;
-            if (!is_within_range(data.price, price_range)) continue;
-            if (!is_within_range(data.high, high_range)) continue;
-            if (!is_within_range(data.low, low_range)) continue;
+            float current_price, change, percent_change, high_price, low_price, open_price, previous_close_price;
+            long timestamp;
+            if (sscanf(buffer, "{\"c\":%f,\"d\":%f,\"dp\":%f,\"h\":%f,\"l\":%f,\"o\":%f,\"pc\":%f,\"t\":%ld}",
+           &current_price, &change, &percent_change, &high_price, &low_price, &open_price, &previous_close_price, &timestamp) == 8) {
 
 
-            printf("Date: %s | Price: %.2f | Open: %.2f | High: %.2f | Low: %.2f | Volume: %.2f | Change: %.2f%%\n",
-                data.date, data.price, data.open, data.high, data.low, data.volume, data.change_percent);
+                time_t rawtime = (time_t)timestamp;
+                struct tm* timeinfo = localtime(&rawtime);
+                char date[20];
+                strftime(date, sizeof(date), "%Y-%m-%d", timeinfo);
 
-            // Create struct with live data
-            createStruct(data.date, data.price, data.open, data.high, data.low, data.volume, data.change_percent);
-            found = 1;
-        } else {
-            fprintf(stderr, "Bad response: %s\n", buffer);
-        }
+                float change_percent = ((current_price - previous_close_price) / previous_close_price) * 100.0f;
+                char change_str[32];
+                snprintf(change_str, sizeof(change_str), "%.2f", change_percent);
+
+                if (!is_date_in_range(date, start_date, end_date)) continue;
+                if (!is_change_matching(change_str, change_filter)) continue;
+                if (!is_within_range(current_price, price_range)) continue;
+                if (!is_within_range(high_price, high_range)) continue;
+                if (!is_within_range(low_price, low_range)) continue;
+
+                printf("Date: %s | Price: %.2f | Open: %.2f | High: %.2f | Low: %.2f | Change: %.2f%%\n",
+                       date, current_price, open_price, high_price, low_price, change_percent);
+
+                createStruct(date, current_price, open_price, high_price, low_price, 0, change_percent);
+                found = 1;
+            } else {
+                fprintf(stderr, "Bad response: %s\n", buffer);
+            }
         }
 
-        if (!found) {
-            printf("No results found for the given query.\n");
-        }
-    
-        pclose(fp);  // Close the file pointer
-        sleep(1);    // Sleep for 1 second between requests
+        pclose(fp);
+        sleep(1);
+    }
+
+    if (!found) {
+        printf("No results found for the given query.\n");
     }
 
     return head;
