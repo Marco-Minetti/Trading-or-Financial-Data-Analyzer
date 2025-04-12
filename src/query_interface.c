@@ -48,7 +48,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
     // Skip header
     fgets(line, sizeof(line), file);
 
-    #pragma omp parallel num_threads(4) //this is where the number of cores are dedicated to run
+    #pragma omp parallel num_threads(4){ //this is where the number of cores are dedicated to run
     while (fgets(line, sizeof(line), file)) {
         char date[20], price[20], open[20], high[20], low[20], volume[20], change[20];
 
@@ -77,6 +77,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
         createStruct(date, atof(price), atof(open), atof(high), atof(low), atof(volume), atof(change));
         found = 1;
     }
+}
 
     if (!found) {
         printf("No results found for the given query.\n");
