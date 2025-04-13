@@ -21,9 +21,9 @@ void calculateSMA(Node* head, int window) {
     Node *tempHead1 = head;
 
     for(int i = 0; i < numberOfNodes/2 - 1; i++){
-        ///head = start of the firs tlinked list
+        ///head = start of the first linked list
         //head2 = start of the second linked list
-        if(i >= numberOfNodes / 2){
+        if(i >= numberOfNodes / 2 - 1){
            head2 = tempHead1->next;
            tempHead1->next = NULL;
         } else {
