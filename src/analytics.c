@@ -11,10 +11,19 @@
 void calculateSMA(Node* head, int window) {
     omp_set_num_threads(2); //this the number of threads we are using
 
-    if (!head) {
-        printf("No Data available for SMA calculation.\n");
+    //Count total nodes
+    int totalNodes = 0;
+    Node *temp = head;
+    while(temp){
+        totalNodes++;
+        temp = temp->next;
+    }
+
+    if(totalNodes < window){
+        printf("Not enough data to calculate %d-day SMA. Only %d data points available. \n", window,, totalNodes);
         return;
     }
+
     //start of the openMP section
     Node *head1 = head;
     Node *head2 = NULL;
