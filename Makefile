@@ -8,11 +8,12 @@ SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 
-# Source files (excluding csv_reader and parallel_processing)
+# Source files (now includes binary_io.c)
 SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/data_structures.c \
        $(SRC_DIR)/analytics.c \
-       $(SRC_DIR)/query_interface.c
+       $(SRC_DIR)/query_interface.c \
+       $(SRC_DIR)/binary_io.c
 
 # Object files (replace .c with .o)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
@@ -40,7 +41,8 @@ $(BIN_DIR):
 
 # Clean build files
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	del /Q /S $(OBJ_DIR)\* 2>NUL || echo "No obj directory"
+	del /Q /S $(BIN_DIR)\* 2>NUL || echo "No bin directory"
 
 # Run the program
 run: all

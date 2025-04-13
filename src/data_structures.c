@@ -3,16 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct {
-    char date[20];
-    float price, open, high, low, volume, change;
-    }Data;
-
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
 void createStruct(const char *date, float price, float open, float high, float low, float volume, float change){
     Data *d = malloc(sizeof(Data));
+    if (!d){
+        fprintf(stderr, "Memory allocation failed in creatStruct\n");
+        return;
+    }
     strncpy(d->date, date, sizeof(d->date) - 1);
     d->date[sizeof(d->date) - 1] = '\0';
     d->price = price;
@@ -22,11 +20,16 @@ void createStruct(const char *date, float price, float open, float high, float l
     d->volume = volume;
     d->change = change;
     nodesCreate(d);
+    free(d);
 }
 
 //this function will create the node, hold the data and will be initialized to NULL and then be passed to nodesCombined to be linked together
 void nodesCreate(Data *d){
     Node *n = malloc(sizeof(Node));
+    if (!n) {
+        fprintf(stderr, "Memory allocation failed in nodesCreate\n");
+        return;
+    }
     n->d = *d;
     n->next = NULL;
     nodesCombined(n);
@@ -43,6 +46,15 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
         temp = ref; //will refer to ref and temp will be set to NULL
     }
     return head;
+}
+
+void clearingMemory(Node *head) {
+    Node *temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
 }
 
 

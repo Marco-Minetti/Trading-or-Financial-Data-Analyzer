@@ -4,6 +4,7 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
+extern int numberOfNodes; //global variable used to keep track of nodes possibly
 
 typedef struct {
     char date[20];
@@ -15,10 +16,12 @@ typedef struct Node{
     struct Node* next;
 }Node;
 
-void createStruct(char* date, float price, float open, float high, float low, float volume, float change);
+void nodesCreate(Data *d);
 
 Node* nodesCombined(Node *n);
 
-void nodesCreate(Data *d);
+void createStruct(const char* date, float price, float open, float high, float low, float volume, float change);
+
+void clearingMemory(Node *head);
 
 #endif
