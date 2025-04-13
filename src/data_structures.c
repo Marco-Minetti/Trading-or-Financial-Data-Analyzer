@@ -41,7 +41,7 @@ Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here an
         temp = ref; //will refer to ref and temp will be set to NULL
         numberOfNodes++;
     }
-    return head;
+    return head; //does not return head anymore
 }
 
 
