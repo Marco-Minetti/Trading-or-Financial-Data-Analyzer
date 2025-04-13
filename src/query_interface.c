@@ -5,6 +5,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "data_structures.h"
 #include "query_interface.h"
@@ -35,7 +36,7 @@ int is_change_matching(const char *change, const char *filter) {
     return (*filter == '+' && change_value > 0) || (*filter == '-' && change_value < 0);
 }
 
-void query_stock_price(const char *filename, const char *start_date, const char *end_date, 
+Node* query_stock_price(const char *filename, const char *start_date, const char *end_date, 
                        const char *change_filter, const char *price_range, 
                        const char *high_range, const char *low_range) {
     char fileposition[256];
@@ -43,11 +44,12 @@ void query_stock_price(const char *filename, const char *start_date, const char 
     FILE *file = fopen(fileposition, "r");
     if (!file) {
         printf("Error: Could not open file %s\n", fileposition);
-        return;
+        exit(1);
     }
 
     char line[MAX_LINE];
     int found = 0;
+    Node *head = NULL;
 
     // Skip header
     fgets(line, sizeof(line), file);
@@ -77,7 +79,7 @@ void query_stock_price(const char *filename, const char *start_date, const char 
         // Print matching row
         printf("Date: %s | Price: %s | Open: %s | High: %s | Low: %s | Volume: %s | Change: %s\n",
                date, price, open, high, low, volume, change); //we can take it off when we want
-        createStruct(date, atof(price), atof(open), atof(high), atof(low), atof(volume), atof(change));
+        head = createStruct(head, date, atof(price), atof(open), atof(high), atof(low), atof(volume), atof(change));
         found = 1;
     }
 
@@ -86,13 +88,14 @@ void query_stock_price(const char *filename, const char *start_date, const char 
     }
 
     fclose(file);
+    return head;
 }
 
 
 //export FINNHUB_API_KEY=cvrd211r01qp88cpllbgcvrd211r01qp88cpllc0
 Node* query_live_stock_price(int duration, const char *start_date, const char *end_date, 
-    const char *change_filter, const char *price_range, 
-    const char *high_range, const char *low_range, const char *symbol) {
+        const char *change_filter, const char *price_range, const char *high_range,
+            const char *low_range, const char *symbol) {
 
     Node* head = NULL;
     int found = 0;
@@ -136,10 +139,21 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
                 if (!is_within_range(high_price, high_range)) continue;
                 if (!is_within_range(low_price, low_range)) continue;
 
+                if (head) {
+                    if (strcmp(date, head->d.date) == 0 && 
+                        fabs(current_price - head->d.price) < 0.001 &&
+                        fabs(open_price - head->d.open) < 0.001 &&
+                        fabs(high_price - head->d.high) < 0.001 &&
+                        fabs(low_price - head->d.low) < 0.001 &&
+                        fabs(change_percent - head->d.change) < 0.001) {
+                        printf("The market is closed.\n");
+                        exit(0);}
+                }
+
                 printf("Date: %s | Price: %.2f | Open: %.2f | High: %.2f | Low: %.2f | Change: %.2f%%\n",
                        date, current_price, open_price, high_price, low_price, change_percent);
 
-                createStruct(date, current_price, open_price, high_price, low_price, 0, change_percent);
+                head = createStruct(head, date, current_price, open_price, high_price, low_price, 0, change_percent);
                 found = 1;
             } else {
                 if(current_price == 0) {

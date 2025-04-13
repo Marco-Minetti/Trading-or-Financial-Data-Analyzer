@@ -17,7 +17,7 @@ void print_usage(const char *program_name) {
     printf("  -f <csv_file>         CSV file containing stock data\n");
     printf("\nOption for 'live' mode:\n");
     printf("  -t <duration>         Duration in seconds to fetch live data\n");
-    printf("  -y <symbol>   Stock symbol to query (e.g., AAPL, TSLA)(AAPL as default)\n");
+    printf("  -y <symbol>   Stock symbol to query (e.g., AAPL, TSLA). Default is AAPL.\n");
     printf("\nOptional options for both mode:\n"); 
     printf("  -s <start_date>       Start date for analysis (optional)\n");
     printf("  -e <end_date>         End date for analysis (optional)\n");
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     extern char *optarg;
     extern int optind;
     int opt;
-    int duration;
+    int duration = 5;
     char *mode = NULL;
     char *filename = NULL;
     char *start_date = NULL;
@@ -80,8 +80,7 @@ int main(int argc, char *argv[]) {
             print_usage(argv[0]);
             return 1;
         }
-        query_stock_price(filename, start_date, end_date, change_filter, price_range, high_range, low_range);
-        head = nodesCombined(NULL);
+        head = query_stock_price(filename, start_date, end_date, change_filter, price_range, high_range, low_range);
     } else if (strcmp(mode, "live") == 0) {
         if (duration <= 0) {
             fprintf(stderr, "Error: Duration must be specified using -t option in 'live' mode.\n");
@@ -98,7 +97,9 @@ int main(int argc, char *argv[]) {
     if (head != NULL) {
         calculateSMA(head, 5);      // Compute 5-day SMA
         calculateMinMax(head);      // Find min/max price
-        calculateVolatility(head);  // Compute volatility
+        if(strcmp(mode, "csv") == 0)
+            calculateVolatility(head);  // Compute volatility
+        clearingMemory(head);
     } else {
         fprintf(stderr, "Error: No data available for analysis.\n");
     }

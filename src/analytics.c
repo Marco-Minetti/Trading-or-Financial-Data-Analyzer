@@ -12,10 +12,23 @@ void calculateSMA(Node* head, int window) {
         return;
     }
 
+    // Count total nodes
+    int totalNodes = 0;
+    Node* temp = head;
+    while (temp) {
+        totalNodes++;
+        temp = temp->next;
+    }
+
+    if (totalNodes < window) {
+        printf("Not enough data to calculate %d-day SMA. Only %d data points available.\n", window, totalNodes);
+        return;
+    }
+
     Node* current = head;
     int count = 0;
     double sum = 0.0;
-    Node* windowStart = head;  // Pointer to start of window
+    Node* windowStart = head;
 
     printf("\nSMA (%d-day):\n", window);
 
@@ -25,8 +38,8 @@ void calculateSMA(Node* head, int window) {
 
         if (count >= window) {
             printf("%s SMA: %.2f\n", current->d.date, sum / window);
-            sum -= windowStart->d.price;  // Remove the oldest value
-            windowStart = windowStart->next;  // Move window forward
+            sum -= windowStart->d.price;
+            windowStart = windowStart->next;
         }
 
         current = current->next;

@@ -13,11 +13,9 @@ typedef struct Node{
    struct Node* next;
 }Node;
 
-void nodesCreate(Data *d);
+Node* nodesCombined(Node* head, Node* new_node);
 
-Node* nodesCombined(Node *n);
-
-void createStruct(char const *date, double price, double open, double high, double low, double volume, double change);
+Node* createStruct(Node* head, char const *date, double price, double open, double high, double low, double volume, double change);
 
 void clearingMemory(Node *head);
 

@@ -3,7 +3,7 @@
 
 #include "data_structures.h"
 
-void query_stock_price(const char *filename, const char *start_date, const char *end_date,
+Node* query_stock_price(const char *filename, const char *start_date, const char *end_date,
                        const char *change_filter, const char *price_range, 
                        const char *high_range, const char *low_range);
 
