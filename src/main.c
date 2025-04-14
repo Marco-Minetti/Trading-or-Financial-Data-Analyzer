@@ -7,6 +7,7 @@
 #include "data_structures.h"
 #include "query_interface.h"
 #include "analytics.h"
+#include "binary_io.h"
 
 void print_usage(const char *program_name) {
     printf("Usage: %s -m <mode> [options]\n", program_name);
@@ -100,6 +101,7 @@ int main(int argc, char *argv[]) {
                 save_to_binary(head, "stock_data.bin");
                 printf("Data saved to binary file.\n");
             }
+        }
     } else if (strcmp(mode, "live") == 0) {
         if (duration <= 0) {
             fprintf(stderr, "Error: Duration must be specified using -t option in 'live' mode.\n");

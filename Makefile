@@ -12,7 +12,8 @@ BIN_DIR = bin
 SRCS = $(SRC_DIR)/main.c \
        $(SRC_DIR)/data_structures.c \
        $(SRC_DIR)/analytics.c \
-       $(SRC_DIR)/query_interface.c
+       $(SRC_DIR)/query_interface.c \
+	   $(SRC_DIR)/binary_io.c
 
 # Object files (replace .c with .o)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
