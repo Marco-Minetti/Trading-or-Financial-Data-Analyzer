@@ -1,7 +1,6 @@
+
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
-
-extern int numberOfNodes; //global variable used to keep track of nodes possibly
 
 typedef struct {
    char date[20];
