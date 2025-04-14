@@ -1,24 +1,22 @@
-//creating the nodes 
-//linking the nodes
-
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
+extern int numberOfNodes; //global variable used to keep track of nodes possibly
 
 typedef struct {
-    char date[20];
-    float price, open, high, low, volume, change;
-    }Data;
+   char date[20];
+   double price, open, high, low, volume, change;
+}Data;
 
-typedef struct Node{ 
-    Data d;
-    struct Node* next;
+typedef struct Node{
+   Data d;
+   struct Node* next;
 }Node;
 
-void createStruct(char* date, float price, float open, float high, float low, float volume, float change);
+Node* nodesCombined(Node* head, Node* new_node);
 
-Node* nodesCombined(Node *n);
+Node* createStruct(Node* head, char const *date, double price, double open, double high, double low, double volume, double change);
 
-void nodesCreate(Data *d);
+void clearingMemory(Node *head);
 
 #endif

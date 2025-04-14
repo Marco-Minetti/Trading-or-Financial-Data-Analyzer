@@ -4,46 +4,47 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
-    char date[20];
-    float price, open, high, low, volume, change;
-    }Data;
+
+int numberOfNodes = 0;
 
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
-void createStruct(const char *date, float price, float open, float high, float low, float volume, float change){
-    Data *d = malloc(sizeof(Data));
-    strncpy(d->date, date, sizeof(d->date) - 1);
-    d->date[sizeof(d->date) - 1] = '\0';
-    d->price = price;
-    d->open = open;
-    d->high = high;
-    d->low = low;
-    d->volume = volume;
-    d->change = change;
-    nodesCreate(d);
+Node* createStruct(Node* head, const char* date, double price, double open, double high, double low, double volume, double change){
+   Data* d = malloc(sizeof(Data));
+   if (!d) return head;
+
+   strncpy(d->date, date, sizeof(d->date) - 1);
+   d->date[sizeof(d->date) - 1] = '\0';
+   d->price = price;
+   d->open = open;
+   d->high = high;
+   d->low = low;
+   d->volume = volume;
+   d->change = change;
+
+   Node* new_node = malloc(sizeof(Node));
+   if (!new_node) {
+      free(d);
+      return head;
+   }
+   new_node->d = *d;
+   new_node->next = NULL;
+
+   return nodesCombined(head, new_node);
 }
 
-//this function will create the node, hold the data and will be initialized to NULL and then be passed to nodesCombined to be linked together
-void nodesCreate(Data *d){
-    Node *n = malloc(sizeof(Node));
-    n->d = *d;
-    n->next = NULL;
-    nodesCombined(n);
+
+Node* nodesCombined(Node* head, Node* new_node) {
+   new_node->next = head;
+   return new_node;
 }
 
-Node* nodesCombined(Node *n){ //the node from nodesCreate will be passed here and connected to each other
-    static Node *head = NULL; //will retain its state when the function is done, and it wont be reinitialized on each call
-    Node *temp = n;
-    
-    while(temp != NULL){
-        Node *ref = temp->next; //will always be set to null due to temp->next being always being NULL
-        temp->next = head;
-        head = temp;
-        temp = ref; //will refer to ref and temp will be set to NULL
+
+void clearingMemory(Node *head) {
+    Node *temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
     }
-    return head;
 }
-
-
-//the header file is for declaring functions
