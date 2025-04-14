@@ -140,7 +140,7 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
                 if (!is_within_range(high_price, high_range)) continue;
                 if (!is_within_range(low_price, low_range)) continue;
 
-                if (head) {
+                /*if (head) {
                     if (strcmp(date, head->d.date) == 0 && 
                         fabs(current_price - head->d.price) < 0.001 &&
                         fabs(open_price - head->d.open) < 0.001 &&
@@ -149,7 +149,7 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
                         fabs(change_percent - head->d.change) < 0.001) {
                         printf("The market is closed.\n");
                         exit(0);}
-                }
+                }*/
 
                 printf("Date: %s | Price: %.2f | Open: %.2f | High: %.2f | Low: %.2f | Change: %.2f%%\n",
                        date, current_price, open_price, high_price, low_price, change_percent);
@@ -166,7 +166,7 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
         }
 
         pclose(fp);
-        sleep(1);
+        sleep(3);
     }
 
     if (!found) {
