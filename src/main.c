@@ -137,5 +137,8 @@ int main(int argc, char *argv[]) {
         log_message("No data available for analysis.");
     }
 
+    clearingMemory(head);
+
+
     return 0;
 }
