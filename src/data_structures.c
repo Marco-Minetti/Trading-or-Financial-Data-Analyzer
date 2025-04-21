@@ -19,7 +19,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    d->open = open;
    d->high = high;
    d->low = low;
-   d->volume = volume;
+   d->volume = volume; //if there is a volume is in the head put the if statement here and if there isn't put 0
    d->change = change;
 
    Node* new_node = malloc(sizeof(Node));
@@ -29,6 +29,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    }
    new_node->d = *d;
    new_node->next = NULL;
+   
 
    return nodesCombined(head, new_node);
 }
