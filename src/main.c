@@ -4,10 +4,21 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <ctype.h>
+#include <stdarg.h>
 #include "data_structures.h"
 #include "query_interface.h"
 #include "analytics.h"
 #include "binary_io.h"
+
+// Variadic logger function
+void log_message(const char *format, ...){
+    va_list args;
+    va_start(args, format);
+    printf("[LOG] ");
+    vprintf(format, args);
+    printf("\n");
+    va_end(args);
+}
 
 void print_usage(const char *program_name) {
     printf("Usage: %s -m <mode> [options]\n", program_name);
@@ -89,7 +100,7 @@ int main(int argc, char *argv[]) {
                 fprintf(stderr, "Failed to load data from binary file.\n");
                 return 1;
             }
-            printf("Data loaded from binary file.\n");
+            log_message("Data loaded from binary file.");
         } else {
             if (filename == NULL) {
                 fprintf(stderr, "Error: CSV file must be specified using -f option in 'csv' mode.\n");
@@ -99,7 +110,7 @@ int main(int argc, char *argv[]) {
             head = query_stock_price(filename, start_date, end_date, change_filter, price_range, high_range, low_range);
             if (save_binary) {
                 save_to_binary(head, "stock_data.bin");
-                printf("Data saved to binary file.\n");
+                log_message("Data saved to binary file.");
             }
         }
     } else if (strcmp(mode, "live") == 0) {
@@ -121,8 +132,9 @@ int main(int argc, char *argv[]) {
         if(strcmp(mode, "csv") == 0)
             calculateVolatility(head);  // Compute volatility
         clearingMemory(head);
+        log_message("Analysis completed and memory cleared.");
     } else {
-        fprintf(stderr, "Error: No data available for analysis.\n");
+        log_message("No data available for analysis.");
     }
 
     return 0;
