@@ -12,10 +12,6 @@ typedef struct Node{
    struct Node* next;
 }Node;
 
-struct {
-   unsigned int number: 1;
-}bitfield;
-
 Node* nodesCombined(Node* head, Node* new_node);
 
 Node* createStruct(Node* head, char const *date, double price, double open, double high, double low, double volume, double change);
