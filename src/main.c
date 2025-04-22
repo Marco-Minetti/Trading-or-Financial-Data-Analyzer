@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
         calculateMinMax(head);      // Find min/max price
         if(strcmp(mode, "csv") == 0)
             calculateVolatility(head);  // Compute volatility
-        clearingMemory(head);
+        clearingMemory(&head);
         //log_message("Analysis completed and memory cleared.");
     } else {
         log_message("No data available for analysis.");
