@@ -29,7 +29,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    }
    new_node->d = *d;
    new_node->next = NULL;
-   
+
 
    return nodesCombined(head, new_node);
 }
@@ -45,7 +45,8 @@ void clearingMemory(Node *head) {
     Node *temp;
     while (head != NULL) {
         temp = head;
-        head = head->next;
-        free(temp);
-    }
+       head = head->next;
+       free(temp);
+   }
+   free(temp);
 }
