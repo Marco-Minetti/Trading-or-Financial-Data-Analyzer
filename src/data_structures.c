@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct {
+   unsigned int number: 1;
+}bitfield;
 
 int numberOfNodes = 0;
 
