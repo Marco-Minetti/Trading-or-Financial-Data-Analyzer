@@ -46,7 +46,6 @@ void clearingMemory(Node *head) {
     while (head != NULL) {
        temp = head;
        head = head->next;
-       free(temp->d); //this is a change i made
        free(temp);
    }
 }
