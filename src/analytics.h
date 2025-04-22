@@ -1,7 +1,6 @@
 #ifndef ANALYTICS_H
 #define ANALYTICS_H
 
-#include "data_structures.h" 
 #define MAX_LINE 1024
 #define MAX_RECORDS 10000
 #define SMA_WINDOW 5
