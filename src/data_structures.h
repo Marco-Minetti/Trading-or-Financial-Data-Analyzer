@@ -12,9 +12,9 @@ typedef struct Node{
    struct Node* next;
 }Node;
 
-struct {
+struct bitfield{
    unsigned int number: 1;
-}bitfield;
+};
 
 Node* nodesCombined(Node* head, Node* new_node);
 
