@@ -27,7 +27,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
       free(d);
       return head;
    }
-   new_node->d = *d;
+   new_node->d = d;//change here
    new_node->next = NULL;
 
 
