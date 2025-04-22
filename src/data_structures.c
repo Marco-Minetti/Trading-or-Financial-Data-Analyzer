@@ -44,8 +44,9 @@ Node* nodesCombined(Node* head, Node* new_node) {
 void clearingMemory(Node *head) {
     Node *temp;
     while (head != NULL) {
-        temp = head;
+       temp = head;
        head = head->next;
+       free(temp->d); //this is a change i made
        free(temp);
    }
 }
