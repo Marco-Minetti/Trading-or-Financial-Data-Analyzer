@@ -2,19 +2,16 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
-typedef struct {
+typedef struct { //[Feature] Struct
    char date[20];
-   double price, open, high, low, volume, change;
+   double price, open, high, low, change;
+   unsigned int volume:3; //[Feature] Bitfield
 }Data;
 
-typedef struct Node{
+typedef struct Node{ //[Feature] Linked List
    Data d;
    struct Node* next;
 }Node;
-
-struct bitfield{
-   unsigned int number: 1;
-};
 
 void counter(Node* head);
 

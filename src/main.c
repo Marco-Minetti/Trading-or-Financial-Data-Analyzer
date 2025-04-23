@@ -10,7 +10,7 @@
 #include "analytics.h"
 #include "binary_io.h"
 
-// Variadic logger function
+//[Feature]Variadic logger function
 void log_message(const char *format, ...){
     va_list args;
     va_start(args, format);
