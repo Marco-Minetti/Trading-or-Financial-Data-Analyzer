@@ -43,7 +43,7 @@ new_node->d.low = low;
 new_node->d.volume = volume;
 new_node->d.change = change;
 new_node->next = NULL;
-   return nodesCombined(head, new_node);
+return nodesCombined(head, new_node);
 }
 
 
