@@ -67,10 +67,6 @@ void calculateSMA(Node* head, int window) {
                 }
 
                 temp1 = temp1->next;
-
-                /*if(temp1 == NULL){
-                    free(traverse1);
-                }*/
             }
         }
 
@@ -89,17 +85,9 @@ void calculateSMA(Node* head, int window) {
                 }
 
                 temp2 = temp2->next;
-
-                /*if(temp2 == NULL){
-                    free(traverse2);
-                }*/
             }
         }
     }
-    /*free(start1);
-    free(start2);
-    free(temp1);
-    free(temp2);*/
 }
 
 // Find Min/Max prices

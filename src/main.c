@@ -108,7 +108,6 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
             head = query_stock_price(filename, start_date, end_date, change_filter, price_range, high_range, low_range);
-            
             if (save_binary) {
                 save_to_binary(head, "stock_data.bin");
                 log_message("Data saved to binary file.");
@@ -137,5 +136,7 @@ int main(int argc, char *argv[]) {
     } else {
         log_message("No data available for analysis.");
     }
+
+    clearingMemory(head);
     return 0;
 }
