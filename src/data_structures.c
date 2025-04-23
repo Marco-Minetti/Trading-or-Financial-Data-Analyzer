@@ -5,7 +5,12 @@
 #include <string.h>
 
 
-int numberOfNodes = 0;
+Node* nodesCombined(Node* head, Node* new_node) {
+   new_node->next = head;
+   return new_node;
+}
+
+
 
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
@@ -35,12 +40,6 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
     free(d);  // Free d since its data is now in the new_node
 
     return nodesCombined(head, new_node);
-}
-
-
-Node* nodesCombined(Node* head, Node* new_node) {
-   new_node->next = head;
-   return new_node;
 }
 
 

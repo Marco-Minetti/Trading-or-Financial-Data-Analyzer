@@ -125,13 +125,14 @@ int main(int argc, char *argv[]) {
         print_usage(argv[0]);
         return 1;
     }
-    
+
     if (head != NULL) {
         calculateSMA(head, 5);      // Compute 5-day SMA
         calculateMinMax(head);      // Find min/max price
         if(strcmp(mode, "csv") == 0)
         calculateVolatility(head);  // Compute volatility
         clearingMemory(head);
+        head = NULL;
         log_message("Analysis completed and memory cleared.");
     } else {
         log_message("No data available for analysis.");
