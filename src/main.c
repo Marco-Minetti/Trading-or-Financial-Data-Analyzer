@@ -98,6 +98,7 @@ int main(int argc, char *argv[]) {
             head = load_from_binary("stock_data.bin");
             if (!head) {
                 fprintf(stderr, "Failed to load data from binary file.\n");
+               clearingMemory(head); 
                 return 1;
             }
             log_message("Data loaded from binary file.");
@@ -105,6 +106,7 @@ int main(int argc, char *argv[]) {
             if (filename == NULL) {
                 fprintf(stderr, "Error: CSV file must be specified using -f option in 'csv' mode.\n");
                 print_usage(argv[0]);
+                clearingMemory(head);
                 return 1;
             }
             head = query_stock_price(filename, start_date, end_date, change_filter, price_range, high_range, low_range);
@@ -117,12 +119,14 @@ int main(int argc, char *argv[]) {
         if (duration <= 0) {
             fprintf(stderr, "Error: Duration must be specified using -t option in 'live' mode.\n");
             print_usage(argv[0]);
+            clearingMemory(head);
             return 1;
         }
         head = query_live_stock_price(duration, start_date, end_date, change_filter, price_range, high_range, low_range, symbol);
     } else {
         fprintf(stderr, "Error: Invalid mode specified.\n");
         print_usage(argv[0]);
+        clearingMemory(head);
         return 1;
     }
 
