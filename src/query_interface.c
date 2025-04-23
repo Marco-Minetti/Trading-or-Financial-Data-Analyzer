@@ -45,7 +45,6 @@ Node* query_stock_price(const char *filename, const char *start_date, const char
     FILE *file = fopen(fileposition, "r");
     if (!file) {
         printf("Error: Could not open file %s\n", fileposition);
-        clearingMemory(head)
         exit(1);
     }
 
