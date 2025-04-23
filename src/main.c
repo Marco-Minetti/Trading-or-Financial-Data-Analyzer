@@ -39,6 +39,7 @@ void print_usage(const char *program_name) {
     printf("  -p <min:max>      Price range filter (optional)\n");
     printf("  -h <min:max>      High price range filter (optional)\n");
     printf("  -l <min:max>      Low price range filter (optional)\n");
+    printf("  -w <window>       Window for the SMA. Default is 5\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -46,6 +47,7 @@ int main(int argc, char *argv[]) {
     extern int optind;
     int opt;
     int duration = 5;
+    int window = 5;
     char *mode = NULL;
     char *filename = NULL;
     char *start_date = NULL;
@@ -58,7 +60,7 @@ int main(int argc, char *argv[]) {
     int save_binary = 0;
     int load_binary = 0;
 
-    while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:y:br")) != -1) {
+    while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:y:w:br")) != -1) {
         switch (opt) {
             case 'm': mode = optarg; break;
             case 'f': filename = optarg; break;
@@ -75,6 +77,7 @@ int main(int argc, char *argv[]) {
             }
             symbol = optarg; 
             break;      
+            case 'w': window = atoi(optarg); break;
             case 'b': save_binary = 1; break;         // save to binary
             case 'r': load_binary = 1; break;         // read from binary
             default:
@@ -129,9 +132,10 @@ int main(int argc, char *argv[]) {
         clearingMemory(head);
         return 1;
     }
-
+    counter(head);
     if (head != NULL) {
-        calculateSMA(head, 5);      // Compute 5-day SMA
+        calculateSMA(head, window);      // Compute 5-day SMA
+        counter(head);
         calculateMinMax(head);      // Find min/max price
         if(strcmp(mode, "csv") == 0)
         calculateVolatility(head);  // Compute volatility

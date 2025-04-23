@@ -52,12 +52,23 @@ Node* nodesCombined(Node* head, Node* new_node) {
    return new_node;
 }
 
+void counter(Node* head) {
+   int c = 0;
+    while (head != NULL) {
+       head = head->next;
+       c++;
+   }
+   printf("COUNTER: %d\n", c);
+}
 
 void clearingMemory(Node *head) {
     Node *temp;
+    int c = 0;
     while (head != NULL) {
        temp = head;
        head = head->next;
+       c++;
        free(temp);
-   }
+      }
+      printf("COUNTER: %d\n", c);
 }

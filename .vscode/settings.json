@@ -63,5 +63,6 @@
     "string.h": "c",
     "data_structures.h": "c"
   },
-  "makefile.configureOnOpen": true
+  "makefile.configureOnOpen": true,
+  "cmake.sourceDirectory": "/home/osboxes/Documents/GitHub/Trading-or-Financial-Data-Analyzer/build"
 }

@@ -24,7 +24,35 @@ void calculateSMA(Node* head, int window) {
         return;
     }
 
-    int middleOfLinkedList = totalNodes/2;
+    if(totalNodes % 5 != 0){
+        printf("Not enough data to calculate %d-day SMA for the last %d\n", window, totalNodes % window);
+    }
+
+    printf("\nSMA (%d-day):\n", window);
+    
+    int middleOfLinkedList;
+    if(totalNodes/window % 2 == 1) {
+        double sum = 0.0;
+        int count = 0;
+        for (int i = 0; i < window; i++) {
+            sum += head->d.price;
+            count++;
+
+            Node *traverse1 = head; //this node will traverse through the first linked list
+
+            if (count >= window) {
+                printf("%s SMA: %.2f\n", head->d.date, sum / window);
+                sum -= traverse1->d.price;
+                traverse1 = traverse1->next;
+                count = 0;
+            }
+
+            head = head->next;
+        }
+        middleOfLinkedList = (totalNodes - window)/2;
+    }
+    else
+        middleOfLinkedList = totalNodes/2;
 
     //start of the openMP section
     Node *start1 = NULL;
@@ -46,9 +74,6 @@ void calculateSMA(Node* head, int window) {
 
     Node *temp1 = head; //the first temp will be assinged to start of the first linked list
     Node *temp2 = start2; //the second temp will be assigned to start of the second linked list
-    
-
-    printf("\nSMA (%d-day):\n", window);
 
     #pragma omp parallel sections //both sections stated below will be done parllel to each other 
     {
@@ -64,6 +89,7 @@ void calculateSMA(Node* head, int window) {
                     printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
                     sum1 -= traverse1->d.price;
                     traverse1 = traverse1->next;
+                    count1 = 0;
                 }
 
                 temp1 = temp1->next;
@@ -82,12 +108,14 @@ void calculateSMA(Node* head, int window) {
                     printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
                     sum2 -= traverse2->d.price;
                     traverse2 = traverse2->next;
+                    count2 = 0;
                 }
 
                 temp2 = temp2->next;
             }
         }
     }
+    start1->next = start2;
 }
 
 // Find Min/Max prices
