@@ -96,10 +96,10 @@ void calculateSMA(Node* head, int window) {
             }
         }
     }
-    free(start1);
+    /*free(start1);
     free(start2);
     free(temp1);
-    free(temp2);
+    free(temp2);*/
 }
 
 // Find Min/Max prices
