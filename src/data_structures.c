@@ -30,7 +30,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    new_node->d = *d;//change here
    new_node->next = NULL;
 
-   clearingMemory(*d);
+   free(d);
    return nodesCombined(head, new_node);
 }
 

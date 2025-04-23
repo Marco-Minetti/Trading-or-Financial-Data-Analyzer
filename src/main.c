@@ -120,6 +120,7 @@ int main(int argc, char *argv[]) {
             return 1;
         }
         head = query_live_stock_price(duration, start_date, end_date, change_filter, price_range, high_range, low_range, symbol);
+        clearingMemory(head);
     } else {
         fprintf(stderr, "Error: Invalid mode specified.\n");
         print_usage(argv[0]);
