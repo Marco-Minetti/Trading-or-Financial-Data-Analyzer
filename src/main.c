@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
         print_usage(argv[0]);
         return 1;
     }
-
+    
     if (head != NULL) {
         calculateSMA(head, 5);      // Compute 5-day SMA
         calculateMinMax(head);      // Find min/max price
@@ -137,6 +137,6 @@ int main(int argc, char *argv[]) {
         log_message("No data available for analysis.");
     }
 
-    clearingMemory(head);
+    //clearingMemory(head);
     return 0;
 }
