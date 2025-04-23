@@ -56,7 +56,7 @@ Node* query_stock_price(const char *filename, const char *start_date, const char
     fgets(line, sizeof(line), file);
 
     while (fgets(line, sizeof(line), file)) {
-        char date[20], price[20], open[20], high[20], low[20], volume[20], change[20];
+        char date[20], price[20], open[20], high[20], low[20], volume[20], change[20]; //Arrays
 
         // Parse CSV line
         sscanf(line, "\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\"",
@@ -66,7 +66,7 @@ Node* query_stock_price(const char *filename, const char *start_date, const char
         double high_value = atof(high);
         double low_value = atof(low);
 
-        char *percent_sign = strchr(change, '%');
+        char *percent_sign = strchr(change, '%'); //[Feature] String
         if (percent_sign) *percent_sign = '\0';  // Remove '%'
         //double change_value = atof(change) / 100.0;
 
@@ -100,7 +100,7 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
 
     Node* head = NULL;
     int found = 0;
-    const char* api_token = getenv("FINNHUB_API_KEY");
+    const char* api_token = getenv("FINNHUB_API_KEY"); //[Feature] Enviromental variable
     if (!api_token) {
         fprintf(stderr, "FINNHUB_API_KEY not set.\n");
         return NULL;

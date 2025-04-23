@@ -10,7 +10,7 @@ int numberOfNodes = 0;
 //this function will take all the vars and allocate space for it then be passed to create the node
 //the constant char allows you pass a string literal safely to the function
 Node* createStruct(Node* head, const char* date, double price, double open, double high, double low, double volume, double change){
-   /*Data* d = malloc(sizeof(Data));
+   Data* d = malloc(sizeof(Data)); //[Feature] Malloc
    if (!d) return head;
 
    strncpy(d->date, date, sizeof(d->date) - 1);
@@ -19,7 +19,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    d->open = open;
    d->high = high;
    d->low = low;
-   d->volume = volume; //if there is a volume is in the head put the if statement here and if there isn't put 0
+   d->volume = (int) volume; //if there is a volume is in the head put the if statement here and if there isn't put 0
    d->change = change;
 
    Node* new_node = malloc(sizeof(Node));
@@ -29,21 +29,10 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    }
    new_node->d = *d;
    new_node->next = NULL;
-*/
 
-Node* new_node = malloc(sizeof(Node));
-if (!new_node) return head;
+   free(d);
 
-strncpy(new_node->d.date, date, sizeof(new_node->d.date) - 1);
-new_node->d.date[sizeof(new_node->d.date) - 1] = '\0';
-new_node->d.price = price;
-new_node->d.open = open;
-new_node->d.high = high;
-new_node->d.low = low;
-new_node->d.volume = volume;
-new_node->d.change = change;
-new_node->next = NULL;
-return nodesCombined(head, new_node);
+   return nodesCombined(head, new_node);
 }
 
 
@@ -58,6 +47,6 @@ void clearingMemory(Node *head) {
     while (head != NULL) {
        temp = head;
        head = head->next;
-       free(temp);
+       free(temp); //[Feature] free
    }
 }
