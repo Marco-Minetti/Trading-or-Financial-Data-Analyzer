@@ -113,7 +113,6 @@ int main(int argc, char *argv[]) {
                 save_to_binary(head, "stock_data.bin");
                 log_message("Data saved to binary file.");
             }
-            clearingMemory(head);
         }
     } else if (strcmp(mode, "live") == 0) {
         if (duration <= 0) {
