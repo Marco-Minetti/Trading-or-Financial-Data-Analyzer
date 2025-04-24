@@ -98,6 +98,12 @@ int main(int argc, char *argv[]) {
     if (strcmp(mode, "csv") == 0) {
         if (load_binary == 1) {
             // Load previously saved binary file
+
+            FILE *file = fopen("stock_data.bin", "r");
+            if(file == NULL) {
+                fprintf(stderr, "The file doesn't exist\n");
+            }
+            
             head = load_from_binary("stock_data.bin");
             if (!head) {
                 fprintf(stderr, "Failed to load data from binary file.\n");
@@ -135,7 +141,6 @@ int main(int argc, char *argv[]) {
     counter(head);
     if (head != NULL) {
         calculateSMA(head, window);      // Compute 5-day SMA
-        counter(head);
         calculateMinMax(head);      // Find min/max price
         if(strcmp(mode, "csv") == 0)
         calculateVolatility(head);  // Compute volatility
