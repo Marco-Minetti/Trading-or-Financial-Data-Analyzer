@@ -59,5 +59,4 @@ void clearingMemory(Node *head) {
        c++;
        free(temp);
       }
-      printf("COUNTER: %d\n", c);
 }

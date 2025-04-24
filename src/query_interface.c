@@ -166,7 +166,7 @@ Node* query_live_stock_price(int duration, const char *start_date, const char *e
         }
 
         pclose(fp);
-        sleep(3);
+        sleep(1);
     }
 
     if (!found) {

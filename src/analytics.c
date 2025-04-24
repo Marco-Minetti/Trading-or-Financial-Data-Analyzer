@@ -49,6 +49,7 @@ void calculateSMA(Node* head, int window) {
 
             head = head->next;
         }
+        
         middleOfLinkedList = (totalNodes - window)/2;
     }
     else
@@ -58,64 +59,66 @@ void calculateSMA(Node* head, int window) {
     Node *start1 = NULL;
     Node *start2 = head;
 
-    for(int i = 0; i < middleOfLinkedList; i++){ //this is the loop that determines where the the linked list should be split
-        start1 = start2;
-        start2 = start2->next; //this will be set to the next node
-    }
-
-    
-    if(start1 != NULL){ //the node that start1 is currently at will be set to null and start2 will be the next start of the second linked list
-        start1->next = NULL;
-    }
-
-
-    double sum1 = 0.0, sum2 = 0.0;
-    int count1 = 0, count2 = 0;
-
-    Node *temp1 = head; //the first temp will be assinged to start of the first linked list
-    Node *temp2 = start2; //the second temp will be assigned to start of the second linked list
-
-    #pragma omp parallel sections //both sections stated below will be done parllel to each other 
-    {
-        #pragma omp section //this section will be assigned to the 0 thread cpu
-        {
-            while (temp1 != NULL) {
-                sum1 += temp1->d.price;
-                count1++;
-
-                Node *traverse1 = temp1; //this node will traverse through the first linked list
-
-                if (count1 >= window) {
-                    printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
-                    sum1 -= traverse1->d.price;
-                    traverse1 = traverse1->next;
-                    count1 = 0;
-                }
-
-                temp1 = temp1->next;
-            }
+    if(middleOfLinkedList > 2) {
+        for(int i = 0; i < middleOfLinkedList; i++){ //this is the loop that determines where the the linked list should be split
+            start1 = start2;
+            start2 = start2->next; //this will be set to the next node
         }
 
-        #pragma omp section //this will be assigned to the 1 thread in the cpu
+        
+        if(start1 != NULL){ //the node that start1 is currently at will be set to null and start2 will be the next start of the second linked list
+            start1->next = NULL;
+        }
+
+
+        double sum1 = 0.0, sum2 = 0.0;
+        int count1 = 0, count2 = 0;
+
+        Node *temp1 = head; //the first temp will be assinged to start of the first linked list
+        Node *temp2 = start2; //the second temp will be assigned to start of the second linked list
+
+        #pragma omp parallel sections //both sections stated below will be done parllel to each other 
         {
-            while (temp2 != NULL) {
-                sum2 += temp2->d.price;
-                count2++;
+            #pragma omp section //this section will be assigned to the 0 thread cpu
+            {
+                while (temp1 != NULL) {
+                    sum1 += temp1->d.price;
+                    count1++;
 
-                Node *traverse2 = temp2; //this node will traverse through the second linked list
+                    Node *traverse1 = temp1; //this node will traverse through the first linked list
 
-                if (count2 >= window) {
-                    printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
-                    sum2 -= traverse2->d.price;
-                    traverse2 = traverse2->next;
-                    count2 = 0;
+                    if (count1 >= window) {
+                        printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
+                        sum1 -= traverse1->d.price;
+                        traverse1 = traverse1->next;
+                        count1 = 0;
+                    }
+
+                    temp1 = temp1->next;
                 }
+            }
 
-                temp2 = temp2->next;
+            #pragma omp section //this will be assigned to the 1 thread in the cpu
+            {
+                while (temp2 != NULL) {
+                    sum2 += temp2->d.price;
+                    count2++;
+
+                    Node *traverse2 = temp2; //this node will traverse through the second linked list
+
+                    if (count2 >= window) {
+                        printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
+                        sum2 -= traverse2->d.price;
+                        traverse2 = traverse2->next;
+                        count2 = 0;
+                    }
+
+                    temp2 = temp2->next;
+                }
             }
         }
-    }
-    start1->next = start2;
+        start1->next = start2;
+    }   
 }
 
 // Find Min/Max prices
