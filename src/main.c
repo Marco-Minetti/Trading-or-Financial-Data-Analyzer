@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
     Node* head = NULL;
 
     if (strcmp(mode, "csv") == 0) {
-        if (load_binary) {
+        if (load_binary == 1) {
             // Load previously saved binary file
             head = load_from_binary("stock_data.bin");
             if (!head) {
