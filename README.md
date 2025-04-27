@@ -1,60 +1,150 @@
-# Financial Data Analyzer
+# 📊 Trading or Financial Data Analyzer
 
 ## Overview
-The **Financial Data Analyzer** is a C-based tool designed to efficiently process and analyze large stock market datasets. It can read historical trading data, compute key financial metrics like moving averages and volatility, and provide a simple command-line interface for querying stock prices.
 
-## Features
-- **Efficient CSV Parsing:** Reads large stock market datasets.
-- **Data Structures:** Utilizes linked lists, hash tables, or trees for optimized data handling.
-- **Computations:** Calculates moving averages, max/min prices, and volatility.
-- **Filtering:** Users can filter data by date range or stock symbol.
-- **Parallel Processing (Optional):** OpenMP for faster calculations.
-- **Command-line Queries:** Allows users to search stock prices by date.
+**Trading or Financial Data Analyzer** is a C-based tool for analyzing both historical and live stock-market data.  
+It reads CSVs or fetches live data via the Finnhub API, computes metrics (SMA, min/max, volatility), supports advanced filtering, and offers binary save/load—all via a CLI.
 
-## Project Structure
+---
+
+## ✨ Features
+
+- 📄 CSV parsing of historical data  
+- 🌐 Live data fetching (Finnhub API)  
+- 📚 Dynamic data structures (linked lists, hash tables, trees)  
+- 📈 Financial metrics: SMA, min/max prices, volatility  
+- 🔎 Filters: date range, symbol, price ranges, positive/negative changes  
+- 💾 Binary file save/load  
+- 🏎️ (Optional) OpenMP parallelism  
+- 🖥️ Full CLI interface  
+
+---
+
+## 📂 Project Structure
+
 ```
-financial_data_analyzer/
-│── src/                   # Source code directory
-│   ├── main.c             # Main program
-│   ├── csv_reader.c       # CSV file handling
-│   ├── csv_reader.h
-│   ├── data_structures.c  # Linked list, hash table, tree for data storage
+Trading-or-Financial-Data-Analyzer/
+│
+├── src/                # All C source & header files
+│   ├── main.c
+│   ├── binary_io.c
+│   ├── binary_io.h
+│   ├── data_structures.c
 │   ├── data_structures.h
-│   ├── analytics.c        # Moving averages, volatility calculations
+│   ├── analytics.c
 │   ├── analytics.h
-│   ├── query_interface.c  # Command-line queries
+│   ├── query_interface.c
 │   ├── query_interface.h
-│   ├── parallel_processing.c # OpenMP parallelization (optional)
-│   ├── parallel_processing.h
-│── data/                  # Sample CSV stock data
-│── tests/                 # Unit tests
-│── docs/                  # Documentation
-│── Makefile               # Compilation instructions
-│── README.md              # Project overview & usage
-│── .gitignore             # Ignore compiled files
+│
+├── data/               # Example CSVs
+│   └── stock_data.csv
+│
+├── bin/                # Generated binary files (optional)
+│   └── stock_data.bin
+│
+├── docs/               # Additional documentation
+│
+├── tests/              # Unit tests
+│
+├── Makefile            # Build script
+├── README.md           # ← You are here
+├── program             # Compiled executable (git-ignored)
+└── .gitignore
 ```
 
-## Installation & Compilation
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/Marco-Minetti/Trading-or-Financial-Data-Analyzer.git
-   cd Trading-or-Financial-Data-Analyzer
-   ```
-2. Compile the project using Makefile:
-   ```sh
-   make
-   ```
+---
 
-## Usage
-To run the program and analyze a stock data CSV file:
-```sh
-./analyzer -f <file_name.csv>
-```
-Example command-line query:
-```sh
-./analyzer -f stock_data.csv -s "03/10/2025" -e "03/18/2025" -c + -p 110:120 -h 115:13 -l 90:1 //TODO: adjust this one
+## 🛠️ Installation & Compilation
+
+```bash
+git clone https://github.com/Marco-Minetti/Trading-or-Financial-Data-Analyzer.git
+cd Trading-or-Financial-Data-Analyzer
+make
 ```
 
-## License
-This project is open-source and free to use for educational purposes.
+This produces the `analyzer` executable.
 
+---
+
+## 🚀 Usage
+
+```bash
+./bin/analyzer -m <mode> [options]
+```
+
+### Modes
+
+| Mode  | Description                                         |
+|:-----:|:----------------------------------------------------|
+| `csv` | Analyze historical data from a CSV file             |
+| `live`| Fetch & analyze live data from the Finnhub API      |
+
+---
+
+### Options
+
+#### CSV Mode (`-m csv`)
+
+| Option           | Description                          |
+|:-----------------|:-------------------------------------|
+| `-f <csv_file>`  | Path to input CSV file               |
+| `-b`             | Save parsed data to a binary file    |
+| `-r`             | Read data from an existing binary    |
+
+#### Live Mode (`-m live`)
+
+| Option             | Description                                      |
+|:-------------------|:-------------------------------------------------|
+| `-t <duration>`    | Seconds to fetch live data                       |
+| `-y <symbol>`      | Stock symbol (default: AAPL)                     |
+
+#### Common Options
+
+| Option            | Description                                                      |
+|:------------------|:-----------------------------------------------------------------|
+| `-s <start_date>` | Filter analysis starting at this date                            |
+| `-e <end_date>`   | Filter analysis ending at this date                              |
+| `-c <+ or ->`     | Change filter: `+` for positive changes, `-` for negative changes |
+| `-p <min:max>`    | Closing price range filter                                      |
+| `-h <min:max>`    | High price range filter                                         |
+| `-l <min:max>`    | Low price range filter                                          |
+| `-w <window>`     | SMA window size (default: 5)                                    |
+| `-H`              | Display help message                                            |
+
+---
+
+## Example Commands
+
+```bash
+# Analyze CSV from 2024, 20-day SMA
+./analyzer -m csv -f data/stock_data.csv -s 2024-01-01 -e 2024-12-31 -w 20
+
+# Save CSV data to binary
+./analyzer -m csv -f data/stock_data.csv -b
+
+# Load from binary
+./analyzer -m csv -r -f bin/stock_data.bin
+
+# Fetch live TSLA data for 60s
+./analyzer -m live -t 60 -y TSLA
+```
+
+---
+
+## 📜 License
+
+Licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+Use, modify, and distribute freely; provided “as-is” with no warranty.
+
+---
+
+## 🤝 Contributing
+
+Fork, branch, and PR. Issues and suggestions welcome at the [GitHub repo](https://github.com/Marco-Minetti/Trading-or-Financial-Data-Analyzer/issues).
+
+---
+
+## 📬 Contact
+
+Maintained by **Marco Minetti**.  
+Questions? Open an issue!
