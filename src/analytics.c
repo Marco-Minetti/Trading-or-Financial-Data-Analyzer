@@ -77,7 +77,7 @@ void calculateSMA(Node* head, int window) {
         Node *temp1 = head; //the first temp will be assinged to start of the first linked list
         Node *temp2 = start2; //the second temp will be assigned to start of the second linked list
 
-        #pragma omp parallel sections //both sections stated below will be done parllel to each other 
+        /*#pragma omp parallel sections //both sections stated below will be done parllel to each other 
         {
             #pragma omp section //this section will be assigned to the 0 thread cpu
             {
@@ -116,7 +116,56 @@ void calculateSMA(Node* head, int window) {
                     temp2 = temp2->next;
                 }
             }
+        }*/
+
+    #pragma omp parallel
+{
+    #pragma omp single
+    {
+        // Task for thread 0 to process the first linked list
+        #pragma omp task
+        {
+            while (temp1 != NULL) {
+                sum1 += temp1->d.price;
+                count1++;
+
+                Node *traverse1 = temp1; // this node will traverse through the first linked list
+
+                if (count1 >= window) {
+                    printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
+                    sum1 -= traverse1->d.price;
+                    traverse1 = traverse1->next;
+                    count1 = 0; // reset the count back to 0 to let us know that once it gets to about 5 days it will print the SMA
+                }
+
+                temp1 = temp1->next;
+            }
         }
+
+        // Task for thread 1 to process the second linked list
+        #pragma omp task
+        {
+            // Wait for the first task (thread 0) to finish before executing this task
+            #pragma omp taskwait
+
+            while (temp2 != NULL) {
+                sum2 += temp2->d.price;
+                count2++;
+
+                Node *traverse2 = temp2; // this node will traverse through the second linked list
+
+                if (count2 >= window) {
+                    printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
+                    sum2 -= traverse2->d.price;
+                    traverse2 = traverse2->next;
+                    count2 = 0;
+                }
+
+                temp2 = temp2->next;
+             }
+         }
+        }
+    }
         start1->next = start2;
     }   
 }
