@@ -99,8 +99,6 @@ void calculateSMA(Node* head, int window) {
                 }
             }
 
-            #pragma omp barrier
-
             #pragma omp section //this will be assigned to the 1 thread in the cpu
             {
                 while (temp2 != NULL) {
@@ -108,7 +106,6 @@ void calculateSMA(Node* head, int window) {
                     count2++;
 
                     Node *traverse2 = temp2; //this node will traverse through the second linked list
-
                     if (count2 >= window) {
                         printf("%s SMA: %.2f\n", temp2->d.date, sum2 / window);
                         sum2 -= traverse2->d.price;
