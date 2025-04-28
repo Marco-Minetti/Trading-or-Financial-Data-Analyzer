@@ -9,7 +9,7 @@
 
 // Calculate SMA
 void calculateSMA(Node* head, int window) {
-    omp_set_num_threads(2); //this the number of threads we are using
+    omp_set_num_threads(2); //this the number of threads we are using for openMP
 
     //Count total nodes
     int totalNodes = 0;
@@ -19,7 +19,7 @@ void calculateSMA(Node* head, int window) {
         temp = temp->next;
     }
 
-    if(totalNodes < window){
+    if(totalNodes < window){ //will check to see if he sufficient enough nodes to give you a calculation for the number of days
         printf("Not enough data to calculate %d-day SMA. Only %d data points available. \n", window, totalNodes);
         return;
     }
@@ -38,7 +38,7 @@ void calculateSMA(Node* head, int window) {
             sum += head->d.price;
             count++;
 
-            Node *traverse1 = head; //this node will traverse through the first linked list
+            Node *traverse1 = head; 
 
             if (count >= window) {
                 printf("%s SMA: %.2f\n", head->d.date, sum / window);
@@ -50,17 +50,17 @@ void calculateSMA(Node* head, int window) {
             head = head->next;
         }
         
-        middleOfLinkedList = (totalNodes - window)/2;
+        middleOfLinkedList = (totalNodes - window)/2; //will calculate the first five nodes if it's odd then it will subtract that window and make it even to be split
     }
     else
-        middleOfLinkedList = totalNodes/2;
+        middleOfLinkedList = totalNodes/2; //if the nodes are even 
 
     //start of the openMP section
     Node *start1 = NULL;
     Node *start2 = head;
 
     if(middleOfLinkedList > 2) {
-        for(int i = 0; i < middleOfLinkedList; i++){ //this is the loop that determines where the the linked list should be split
+        for(int i = 0; i < middleOfLinkedList; i++){ //this is the loop that determines where the linked list should be split
             start1 = start2;
             start2 = start2->next; //this will be set to the next node
         }
@@ -81,6 +81,7 @@ void calculateSMA(Node* head, int window) {
         {
             #pragma omp section //this section will be assigned to the 0 thread cpu
             {
+                
                 while (temp1 != NULL) {
                     sum1 += temp1->d.price;
                     count1++;
@@ -91,12 +92,14 @@ void calculateSMA(Node* head, int window) {
                         printf("%s SMA: %.2f\n", temp1->d.date, sum1 / window);
                         sum1 -= traverse1->d.price;
                         traverse1 = traverse1->next;
-                        count1 = 0;
+                        count1 = 0; //reset the count back to 0 to let us know that once it gets to about 5 days it will print the SMA
                     }
 
                     temp1 = temp1->next;
                 }
             }
+
+            #pragma omp barrier
 
             #pragma omp section //this will be assigned to the 1 thread in the cpu
             {

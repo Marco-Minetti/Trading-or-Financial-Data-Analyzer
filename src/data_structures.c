@@ -30,7 +30,7 @@ Node* createStruct(Node* head, const char* date, double price, double open, doub
    new_node->d = *d;
    new_node->next = NULL;
 
-   free(d);
+   free(d); //will free the data each time because the information would have been placed inside of the node already
 
    return nodesCombined(head, new_node);
 }
@@ -41,7 +41,7 @@ Node* nodesCombined(Node* head, Node* new_node) {
    return new_node;
 }
 
-void counter(Node* head) {
+void counter(Node* head) { //void counter will count the number of nodes that are created
    int c = 0;
     while (head != NULL) {
        head = head->next;
