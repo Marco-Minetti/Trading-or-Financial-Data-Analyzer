@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
 
     Node* head = NULL;
 
-    if (strcmp(mode, "csv") == 0) {
+    if (strcmp(mode, "csv") == 0) { //[Feature] String function
         if (load_binary == 1) {
             // Load previously saved binary file
 
