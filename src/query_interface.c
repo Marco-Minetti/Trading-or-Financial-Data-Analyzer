@@ -17,7 +17,6 @@
 int confront_date(const char* input1, const char* input2) {
     int month, day, year;
     int month2, day2, year2;
-    printf("confront_date called with %s and %s\n", input1, input2);
 
     sscanf(input1, "%2d/%2d/%4d", &month, &day, &year);
     sscanf(input2, "%2d/%2d/%4d", &month2, &day2, &year2);
