@@ -14,12 +14,12 @@
 
 #define MAX_LINE 1024
 
-void confront_date(count char* input1, count char* input1) {
+void confront_date(count char* input1, count char* input2) {
     int month, day, year;
     int month2, day2, year2;
 
     sscanf(input1, "%2d/%2d/%4d", &month, &day, &year);
-    sscanf(input1, "%2d/%2d/%4d", &month2, &day2, &year2);
+    sscanf(input2, "%2d/%2d/%4d", &month2, &day2, &year2);
 
     if(year < year2) return -1;
     if(year > year2) return 1;
