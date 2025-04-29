@@ -17,9 +17,9 @@
 void confront_date(count char* input1, count char* input2) {
     int month, day, year;
     int month2, day2, year2;
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
     sscanf(input1, "%2d/%2d/%4d", &month, &day, &year);
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     sscanf(input2, "%2d/%2d/%4d", &month2, &day2, &year2);
 
     if(year < year2) return -1;
@@ -33,7 +33,6 @@ void confront_date(count char* input1, count char* input2) {
 }
 
 int is_date_in_range(const char *date, const char *start_date, const char *end_date) {
-    confront_date(date, start_date)
     if (start_date && confront_date(date, start_date) < 0) return 0;
     if (end_date && confront_date(date, end_date) > 0) return 0;
     return 1;
