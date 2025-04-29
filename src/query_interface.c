@@ -30,7 +30,7 @@ int is_date_in_range(const char *date, const char *start_date, const char *end_d
     if(end_date) 
         flip_date(end_date, out_end);
 
-    printf("%s", end_date);
+    printf("%s\n", end_date);
     if (out_start && strcmp(out_date, out_start) < 0) return 0;
     if (out_end && strcmp(out_date, out_end) > 0) return 0;
     return 1;
