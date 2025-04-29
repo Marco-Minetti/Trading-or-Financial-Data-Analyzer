@@ -60,9 +60,6 @@ int main(int argc, char *argv[]) {
     int save_binary = 0;
     int load_binary = 0;
 
-    
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
     while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:y:w:br")) != -1) { //[Feature] Command line opt
         switch (opt) {
             case 'm': mode = optarg; break;
