@@ -56,7 +56,7 @@ Node* query_stock_price(const char *filename, const char *start_date, const char
     fgets(line, sizeof(line), file);
 
     while (fgets(line, sizeof(line), file)) {
-        char date[20], price[20], open[20], high[20], low[20], volume[20], change[20]; //Arrays
+        char date[20], price[20], open[20], high[20], low[20], volume[20], change[20]; //[Feature] Arrays
 
         // Parse CSV line
         sscanf(line, "\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\",\"%19[^\"]\"",

@@ -10,7 +10,7 @@
 #include "analytics.h"
 #include "binary_io.h"
 
-//[Feature]Variadic logger function
+//[Feature] Variadic logger function
 void log_message(const char *format, ...){
     va_list args;
     va_start(args, format);
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
     int save_binary = 0;
     int load_binary = 0;
 
-    while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:y:w:br")) != -1) {
+    while ((opt = getopt(argc, argv, "m:f:s:e:c:p:h:l:t:y:w:br")) != -1) { //[Feature] Command line opt
         switch (opt) {
             case 'm': mode = optarg; break;
             case 'f': filename = optarg; break;

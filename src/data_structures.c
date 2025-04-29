@@ -57,6 +57,6 @@ void clearingMemory(Node *head) {
        temp = head;
        head = head->next;
        c++;
-       free(temp);
+       free(temp); //[Feature] Free
       }
 }
