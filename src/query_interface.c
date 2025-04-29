@@ -14,25 +14,27 @@
 
 #define MAX_LINE 1024
 
-void flip_date(count char* input, const char* output) {
+void confront_date(count char* input1, count char* input1) {
     int month, day, year;
+    int month2, day2, year2;
 
-    sscanf(input, "%2d/%2d/%4d", &month, &day, &year);
-    sprintf(output, "%04d-%02d-%02d", year, month, day);
+    sscanf(input1, "%2d/%2d/%4d", &month, &day, &year);
+    sscanf(input1, "%2d/%2d/%4d", &month2, &day2, &year2);
+
+    if(year < year2) return -1;
+    if(year > year2) return 1;
+    if(month < month2) return -1;
+    if(month > month2) return 1;
+    if(day < day2) return -1;
+    if(day > day2) return 1;
+
+    return 0;
 }
 
 int is_date_in_range(const char *date, const char *start_date, const char *end_date) {
-    char out_date[11], out_start[11], out_end[11];
-    if(date) 
-        flip_date(date, out_date);
-    if(start_date) 
-        flip_date(start_date, out_start);
-    if(end_date) 
-        flip_date(end_date, out_end);
-
-    printf("%s\n", end_date);
-    if (out_start && strcmp(out_date, out_start) < 0) return 0;
-    if (out_end && strcmp(out_date, out_end) > 0) return 0;
+    
+    if (out_start && confront_date(out_date, out_start) < 0) return 0;
+    if (out_end && confront_date(out_date, out_end) > 0) return 0;
     return 1;
 }
 
