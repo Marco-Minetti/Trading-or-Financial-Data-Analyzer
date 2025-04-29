@@ -19,6 +19,7 @@ void confront_date(count char* input1, count char* input2) {
     int month2, day2, year2;
 
     sscanf(input1, "%2d/%2d/%4d", &month, &day, &year);
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     sscanf(input2, "%2d/%2d/%4d", &month2, &day2, &year2);
 
     if(year < year2) return -1;
