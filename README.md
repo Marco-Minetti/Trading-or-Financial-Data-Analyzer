@@ -62,7 +62,7 @@ cd Trading-or-Financial-Data-Analyzer
 make
 ```
 
-This produces the `analyzer` executable.
+This produces the `financial_analyzer` executable.
 
 ---
 
@@ -117,19 +117,17 @@ This produces the `analyzer` executable.
 
 ```bash
 # Analyze CSV from 2024, 20-day SMA
-./analyzer -m csv -f data/stock_data.csv -s 2024-01-01 -e 2024-12-31 -w 20
+./bin/financial_analyzer -m csv -f data/stock_data.csv -s 2024-01-01 -e 2024-12-31 -w 20
 
 # Save CSV data to binary
-./analyzer -m csv -f data/stock_data.csv -b
+./bin/financial_analyzer -m csv -f data/stock_data.csv -b
 
 # Load from binary
-./analyzer -m csv -r -f bin/stock_data.bin
+./bin/financial_analyzer -m csv -r -f bin/stock_data.bin
 
 # Fetch live TSLA data for 60s
-./analyzer -m live -t 60 -y TSLA
+./bin/financial_analyzer -m live -t 60 -y TSLA
 ```
-
----
 
 ## 📜 License
 
