@@ -117,13 +117,13 @@ This produces the `financial_analyzer` executable.
 
 ```bash
 # Analyze CSV from 2024, 20-day SMA
-./bin/financial_analyzer -m csv -f data/stock_data.csv -s 2024-01-01 -e 2024-12-31 -w 20
+./bin/financial_analyzer -m csv -f stock_data.csv -s 2024-01-01 -e 2024-12-31 -w 20
 
 # Save CSV data to binary
-./bin/financial_analyzer -m csv -f data/stock_data.csv -b
+./bin/financial_analyzer -m csv -f stock_data.csv -b
 
 # Load from binary
-./bin/financial_analyzer -m csv -r -f bin/stock_data.bin
+./bin/financial_analyzer -m csv -r -f stock_data.bin
 
 # Fetch live TSLA data for 60s
 ./bin/financial_analyzer -m live -t 60 -y TSLA
